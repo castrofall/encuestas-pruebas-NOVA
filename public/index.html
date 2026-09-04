@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/assets/nova.png" type="image/png">
 <title>Cuéntanos cómo te fue con Nova · Ternova</title>
 <style>
   :root{
@@ -44,20 +45,37 @@
   }
 
   /* ---------- Portada ---------- */
-  .portada{color:#fff;margin-bottom:22px}
+  .portada{
+    color:#fff; margin-bottom:22px;
+    display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:center;
+  }
   .portada h1{
-    margin:0 0 12px; font-size:clamp(27px,5.2vw,40px); line-height:1.14;
+    margin:0 0 12px; font-size:clamp(26px,4.4vw,38px); line-height:1.14;
     font-weight:700; letter-spacing:-.02em;
   }
   .portada h1 em{font-style:normal;color:var(--naranja)}
   .portada p{
     margin:0; font-size:16px; line-height:1.6;
-    color:rgba(232,225,245,.86); max-width:60ch;
+    color:rgba(232,225,245,.86); max-width:56ch;
+  }
+  .nova-portada{
+    width:132px; height:auto; display:block;
+    filter:drop-shadow(0 10px 34px rgba(154,131,214,.45));
+    animation:flotar 7s ease-in-out infinite;
+  }
+  @keyframes flotar{
+    0%,100%{transform:translateY(0)}
+    50%    {transform:translateY(-9px)}
+  }
+  @media (max-width:640px){
+    .portada{grid-template-columns:1fr;gap:14px;justify-items:start}
+    .nova-portada{width:92px}
   }
 
   /* ---------- Progreso ---------- */
-  .progreso{margin:0 0 -1px;background:var(--papel);border-radius:var(--r) var(--r) 0 0;padding:18px 22px 0}
-  .pasos{display:flex;gap:6px;list-style:none;margin:0 0 14px;padding:0}
+  /* Vive dentro de la tarjeta: sin fondo ni bordes propios, así no hay costura. */
+  .progreso{padding:20px 0 0}
+  .pasos{display:flex;gap:6px;list-style:none;margin:0 0 6px;padding:0}
   .pasos li{flex:1;min-width:0}
   .pasos .barra{height:4px;border-radius:99px;background:var(--linea);transition:background .3s}
   .pasos li.hecho .barra,.pasos li.activo .barra{background:var(--naranja)}
@@ -69,9 +87,10 @@
   @media (max-width:560px){ .pasos .nombre{display:none} }
 
   /* ---------- Tarjeta ---------- */
+  /* Una sola pieza: progreso, formulario y cierre comparten fondo y sombra. */
   .tarjeta{
-    background:var(--papel); border-radius:0 0 var(--r) var(--r);
-    padding:8px 22px 24px; box-shadow:var(--sombra);
+    background:var(--papel); border-radius:var(--r);
+    padding:0 22px 24px; box-shadow:var(--sombra);
   }
   .paso[hidden]{display:none}
   .paso h2{
@@ -198,15 +217,32 @@
   .aviso.visible{display:flex}
 
   /* ---------- Cierre ---------- */
-  .cierre{display:none;text-align:center;padding:44px 20px 34px}
+  .cierre{display:none;text-align:center;padding:40px 20px 34px}
   .cierre.visible{display:block}
-  .cierre .marca{
-    width:66px;height:66px;margin:0 auto 20px;border-radius:50%;
-    background:var(--exito);display:flex;align-items:center;justify-content:center;
-    box-shadow:0 6px 22px rgba(27,127,90,.30);
+
+  /* Nova con el visto bueno encima: confirma el envío sin perder la marca. */
+  .nova-cierre{
+    position:relative;width:132px;height:132px;margin:0 auto 22px;
+    animation:aparecer .5s cubic-bezier(.22,1.2,.4,1) both;
   }
-  .cierre .marca svg{width:32px;height:32px;stroke:#fff;stroke-width:3;fill:none;
+  .nova-cierre img{
+    width:100%;height:100%;display:block;
+    filter:drop-shadow(0 10px 26px rgba(58,19,128,.28));
+  }
+  .cierre .marca{
+    position:absolute;right:-2px;bottom:-2px;
+    width:44px;height:44px;border-radius:50%;
+    background:var(--exito);border:3px solid var(--papel);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 14px rgba(27,127,90,.32);
+    animation:aparecer .4s cubic-bezier(.22,1.2,.4,1) .22s both;
+  }
+  .cierre .marca svg{width:20px;height:20px;stroke:#fff;stroke-width:3.4;fill:none;
     stroke-linecap:round;stroke-linejoin:round}
+  @keyframes aparecer{
+    from{opacity:0;transform:scale(.72)}
+    to  {opacity:1;transform:scale(1)}
+  }
   .cierre h2{margin:0 0 10px;font-size:24px;color:var(--indigo)}
   .cierre p{margin:0 auto 8px;max-width:46ch;font-size:15px;line-height:1.6;color:var(--texto-suave)}
   .folio{
@@ -235,19 +271,22 @@
   </header>
 
   <div class="portada">
-    <h1>Gracias por participar <em>en las pruebas de Nova</em></h1>
-    <p>Nos alegra que hayas dedicado tu tiempo hoy a probarla. Ahora nos gustaría escucharte: tu opinión nos dice qué está funcionando y qué falta mejorar.</p>
-  </div>
-
-  <div class="progreso">
-    <ol class="pasos" id="pasos">
-      <li data-paso="1"><div class="barra"></div><span class="nombre">Tú</span></li>
-      <li data-paso="2"><div class="barra"></div><span class="nombre">Tu experiencia</span></li>
-      <li data-paso="3"><div class="barra"></div><span class="nombre">Qué mejorar</span></li>
-    </ol>
+    <img class="nova-portada" src="/assets/nova.png" alt="" width="512" height="512">
+    <div class="portada-texto">
+      <h1>Gracias por participar <em>en las pruebas de Nova</em></h1>
+      <p>Nos alegra que hayas dedicado tu tiempo hoy a probarla. Ahora nos gustaría escucharte: tu opinión nos dice qué está funcionando y qué falta mejorar.</p>
+    </div>
   </div>
 
   <div class="tarjeta">
+    <div class="progreso">
+      <ol class="pasos" id="pasos">
+        <li data-paso="1"><div class="barra"></div><span class="nombre">Tú</span></li>
+        <li data-paso="2"><div class="barra"></div><span class="nombre">Tu experiencia</span></li>
+        <li data-paso="3"><div class="barra"></div><span class="nombre">Qué mejorar</span></li>
+      </ol>
+    </div>
+
     <div class="aviso" id="aviso" role="alert" aria-live="assertive">
       <span aria-hidden="true">⚠️</span><span id="aviso-txt"></span>
     </div>
@@ -375,7 +414,12 @@
     </form>
 
     <div class="cierre" id="cierre">
-      <div class="marca"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6.5"/></svg></div>
+      <div class="nova-cierre">
+        <img src="/assets/nova.png" alt="" width="512" height="512">
+        <span class="marca" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><polyline points="4 12.5 9.5 18 20 6.5"/></svg>
+        </span>
+      </div>
       <h2>¡Gracias, <span id="cierre-nombre">colega</span>!</h2>
       <p>Tu respuesta ya quedó registrada. El equipo de TI la revisa junto con las de tus compañeros para decidir qué se mejora primero en Nova.</p>
       <div class="folio" id="folio"></div>
