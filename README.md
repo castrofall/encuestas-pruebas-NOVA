@@ -4,7 +4,7 @@ Formulario para recoger la retroalimentación de las pruebas de **Nova**, y pane
 interno para leer los resultados. Se despliega en Vercel y guarda las respuestas
 en una base de datos **Neon** (PostgreSQL).
 
-- **Formulario** — `/` · lo llenan los usuarios, cuatro pasos, ~3 minutos.
+- **Formulario** — `/` · lo llenan los usuarios, tres pasos cortos.
 - **Panel** — `/dashboard` · lo abre TI con contraseña, muestra métricas y respuestas.
 
 ---
@@ -122,7 +122,7 @@ node dev/pruebas.mjs
 ## Estructura
 
 ```
-public/index.html       Formulario (4 pasos, borrador local, validación en vivo)
+public/index.html       Formulario (3 pasos, borrador local, validación en vivo)
 public/dashboard.html   Panel de resultados (métricas, gráficos, buscador, CSV)
 api/feedback.js         POST · guarda una respuesta
 api/acceso.js           POST · valida la contraseña y emite el token de sesión
