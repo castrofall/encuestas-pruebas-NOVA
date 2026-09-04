@@ -4,7 +4,14 @@ import { guardarFeedback, enviosRecientesPorIp, enviosRecientesPorCorreo, hayBas
 import { leerJson, responder, exigirMetodo, errorInterno } from '../lib/http.js';
 
 // Control de abuso: techo por origen de red y techo por persona.
-const LIMITE_POR_IP = 5;
+//
+// El techo por red es holgado a propósito. Toda la oficina sale a internet por
+// la misma IP pública, así que un límite bajo bloquearía a compañeros legítimos
+// justo cuando más gente responde (las horas siguientes al correo de invitación).
+// Con ~20 participantes, 100 por hora deja margen de sobra y sigue frenando un
+// envío automatizado. El control que de verdad evita respuestas repetidas de la
+// misma persona es el de por correo, más abajo.
+const LIMITE_POR_IP = 100;
 const VENTANA_MINUTOS = 60;
 const LIMITE_POR_CORREO_DIA = 3;
 

@@ -157,7 +157,7 @@ Lo que ya está implementado:
 - **Validación y saneado de entrada y salida**: catálogos cerrados, límites de
   longitud, rangos numéricos, eliminación de caracteres de control, y escapado de
   todo el contenido antes de mostrarlo en el panel.
-- **Rate limiting**: 5 envíos por hora y red, 3 por correo y día.
+- **Rate limiting**: 100 envíos por hora y red, 3 por correo y día. El techo por red es holgado a propósito: toda la oficina sale por la misma IP pública, así que uno bajo bloquearía a participantes legítimos. El control real contra respuestas repetidas es el de por correo.
 - **Bloqueo de acceso** tras 4 intentos fallidos durante 30 minutos.
 - **Sesión** con token firmado (HMAC-SHA256) que caduca a los 15 minutos de
   inactividad y muere al rotar la contraseña.
