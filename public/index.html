@@ -236,7 +236,7 @@
 
   <div class="portada">
     <h1>Gracias por participar <em>en las pruebas de Nova</em></h1>
-    <p>Nos alegra que hayas dedicado tu tiempo hoy a probar Nova. Ahora nos gustaría escucharte: tu opinión es la que nos dice qué está funcionando y qué falta mejorar, y de verdad agradecemos que nos la compartas para mejorar.</p>
+    <p>Nos alegra que hayas dedicado tu tiempo hoy a probarla. Ahora nos gustaría escucharte: tu opinión nos dice qué está funcionando y qué falta mejorar.</p>
   </div>
 
   <div class="progreso">
@@ -364,13 +364,6 @@
           <textarea id="comentario" name="comentario" maxlength="2000" style="min-height:70px"></textarea>
           <span class="contador" data-cuenta="comentario"></span>
         </div>
-
-        <fieldset style="margin-bottom:6px">
-          <label class="item" style="align-items:center">
-            <input type="checkbox" id="contactable" name="contactable">
-            <span>Pueden escribirme si quieren profundizar en algo de lo que respondí.</span>
-          </label>
-        </fieldset>
       </section>
 
       <div class="nav">
@@ -384,7 +377,6 @@
       <div class="marca"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6.5"/></svg></div>
       <h2>¡Gracias, <span id="cierre-nombre">colega</span>!</h2>
       <p>Tu respuesta ya quedó registrada. El equipo de TI la revisa junto con las de tus compañeros para decidir qué se mejora primero en Nova.</p>
-      <p>Si marcaste que podemos escribirte, es posible que te busquemos para conocer más detalles.</p>
       <div class="folio" id="folio"></div>
     </div>
   </div>
@@ -463,7 +455,6 @@ function recolectar() {
     const v = $(`input[name="${c}"]:checked`)?.value;
     d[c] = v === undefined ? null : Number(v);
   }
-  d.contactable = $('#contactable').checked;
   return d;
 }
 
@@ -477,16 +468,12 @@ function restaurarBorrador() {
   if (!d) return;
   for (const [k, v] of Object.entries(d)) {
     if (v === null || v === '' || (Array.isArray(v) && !v.length)) continue;
-    if (k === 'contactable') {
-      $('#contactable').checked = Boolean(v);
+    const campo = $('#' + k);
+    if (campo && (campo.tagName === 'INPUT' || campo.tagName === 'TEXTAREA' || campo.tagName === 'SELECT')) {
+      campo.value = v;
     } else {
-      const campo = $('#' + k);
-      if (campo && (campo.tagName === 'INPUT' || campo.tagName === 'TEXTAREA' || campo.tagName === 'SELECT')) {
-        campo.value = v;
-      } else {
-        const r = $$(`input[name="${k}"]`).find((x) => x.value === String(v));
-        if (r) r.checked = true;
-      }
+      const r = $$(`input[name="${k}"]`).find((x) => x.value === String(v));
+      if (r) r.checked = true;
     }
   }
   $$('[data-cuenta]').forEach((s) => {

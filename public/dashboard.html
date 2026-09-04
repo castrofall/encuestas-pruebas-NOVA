@@ -289,6 +289,7 @@ const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 const CLAVE_TOKEN = 'feedback-nova-token';
+const AREAS_TOTALES = 11; // Igual que el catálogo AREAS de lib/validacion.js.
 let token = sessionStorage.getItem(CLAVE_TOKEN) || '';
 let datos = null;
 let temporizador = null;
@@ -539,11 +540,17 @@ function pintar() {
           <div class="cifra">${m.dimensiones[0].promedio ?? '—'}<span style="font-size:18px;color:var(--texto-tenue);font-weight:500"> / 5</span></div>
           <div class="nota">Promedio de todas las respuestas</div>
         </div>
+        ${m.contactables > 0 ? `
         <div class="kpi">
           <div class="rotulo">Abiertos a conversar</div>
           <div class="cifra">${fmt(m.contactables)}</div>
           <div class="nota">Autorizaron que se les contacte para profundizar</div>
-        </div>
+        </div>` : `
+        <div class="kpi">
+          <div class="rotulo">Áreas representadas</div>
+          <div class="cifra">${fmt(m.areas.length)}</div>
+          <div class="nota">De las ${AREAS_TOTALES} que existen en el catálogo</div>
+        </div>`}
       </div>
     </section>
 
@@ -648,6 +655,8 @@ function tarjetaRespuesta(f) {
         <span class="insignia">★ ${f.satisfaccion ?? '—'}/5</span>
         <span class="insignia ${clase}">NPS ${f.nps ?? '—'}</span>
         ${f.contactable ? '<span class="insignia">✉ Contactable</span>' : ''}
+        ${/* La insignia de contacto solo aparece en respuestas viejas: el
+             formulario dejó de preguntarlo. */ ''}
       </div>
       <span class="flecha" aria-hidden="true">▶</span>
     </div>

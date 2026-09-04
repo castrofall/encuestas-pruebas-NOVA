@@ -99,7 +99,6 @@ function generar(i) {
     mejoras: azar(MEJORAS),
     futuro: azar(FUTURO),
     comentario: Math.random() < 0.3 ? 'Gracias por tomarnos en cuenta para la prueba.' : '',
-    contactable: Math.random() < 0.45,
   };
 }
 
