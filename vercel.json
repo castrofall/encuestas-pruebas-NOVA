@@ -1,6 +1,7 @@
 {
   "framework": null,
   "outputDirectory": "public",
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/(.*)",
