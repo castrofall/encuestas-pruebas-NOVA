@@ -1,6 +1,7 @@
 // GET /api/salud  ->  diagnostico de configuracion. No expone ningun secreto.
 import { hayBaseDeDatos, esModoMemoria, contarFeedback } from '../lib/db.js';
 import { responder, exigirMetodo } from '../lib/http.js';
+import { resumenLimites } from '../lib/limites.js';
 
 export default async function handler(req, res) {
   if (!exigirMetodo(req, res, 'GET')) return;
@@ -11,6 +12,9 @@ export default async function handler(req, res) {
     panel: process.env.DASHBOARD_PASSWORD ? 'configurado' : 'falta DASHBOARD_PASSWORD',
     sal_ip: process.env.IP_SALT ? 'configurada' : 'falta IP_SALT',
     dominio: process.env.DOMINIO_PERMITIDO || 'ternova.group',
+    // Los límites vigentes: permite comprobar desde fuera qué versión está viva
+    // sin tener que enviar respuestas de prueba a la base real.
+    limites: resumenLimites(),
     conexion: 'sin probar',
     respuestas: null,
   };
