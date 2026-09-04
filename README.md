@@ -78,10 +78,20 @@ cp .env.example .env    # y llenarlo
 npm run dev             # http://127.0.0.1:3020
 ```
 
+> **`npm install` no funciona dentro de la red de Ternova.** Se verificó el
+> 2026-09-04: `registry.npmjs.org` no responde a ninguna petición desde la red
+> corporativa (tiempo de espera agotado, `ECONNRESET`). Esto **no afecta el
+> despliegue**, porque Vercel instala desde su propia red. Para trabajar en local
+> se usa el modo memoria que se explica abajo, que no necesita instalar nada.
+
 **Sin base de datos**: poner `DATABASE_URL=memoria` en el `.env`. Las respuestas
 se guardan en memoria y se pierden al reiniciar, pero el formulario y el panel
-funcionan completos. En ese modo ni siquiera hace falta `npm install`, porque el
-driver de Neon se carga solo cuando se usa de verdad.
+funcionan completos. En ese modo no hace falta `npm install`, porque el driver de
+Neon se carga solo cuando se conecta de verdad a la base.
+
+Si hace falta probar en local **contra Neon** (y no contra el modo memoria), hay
+que instalar la dependencia desde una red sin el proxy corporativo, o simplemente
+probar sobre el despliegue de Vercel.
 
 Para llenar el panel con respuestas de ejemplo:
 
