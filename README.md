@@ -11,18 +11,30 @@ en una base de datos **Neon** (PostgreSQL).
 
 ## Qué se le pregunta al usuario
 
-Cuatro pasos con barra de progreso. Lo que escribe se guarda en el navegador
+Tres pasos con barra de progreso. Lo que escribe se guarda en el navegador
 mientras responde, así que si cierra la pestaña no pierde nada.
 
 | Paso | Preguntas |
 |---|---|
-| **1. Quién eres** | Nombre completo · Correo `@ternova.group` · Área · Frecuencia de uso |
+| **1. Quién eres** | Nombre completo · Correo `@ternova.group` · Área |
 | **2. Tu experiencia** | Experiencia general, calidad de las respuestas, velocidad y facilidad de uso (1 a 5) · Recomendación (NPS, 0 a 10) |
-| **3. Cómo la usaste** | Tareas en las que la usó (varias) · Tiempo que estima haber ahorrado · Cuánto confía en las respuestas |
-| **4. Qué mejorar** | Lo que más le gustó · Lo que le falló *(opcional)* · Lo primero que arreglaría · Lo que quisiera ver a futuro *(opcional)* · Comentario libre *(opcional)* · Si acepta que lo contacten |
+| **3. Qué mejorar** | Lo que más le gustó · Lo que le falló *(opcional)* · Lo primero que arreglaría · Lo que quisiera ver a futuro *(opcional)* · Comentario libre *(opcional)* · Si acepta que lo contacten |
 
 Las escalas están separadas a propósito: una persona puede estar encantada con la
 velocidad y molesta con la precisión, y esa diferencia es la que sirve para decidir.
+
+### Preguntas en pausa
+
+Cuatro preguntas se retiraron del formulario, pero nada se borró: **frecuencia de
+uso**, **tareas en las que la usó**, **tiempo ahorrado** y **confianza en las
+respuestas**.
+
+- Sus columnas siguen en la base de datos y la API las acepta si llegan, sin ser
+  obligatorias.
+- El panel dibuja su sección **solo si hay datos**, así que hoy no aparece y
+  vuelve sola en cuanto se reactiven.
+- Para reactivar una: volver a mostrar el campo en `public/index.html` y, si se
+  quiere obligatoria, añadir su regla en `REGLAS` (ahí) y en `lib/validacion.js`.
 
 ## Qué muestra el panel
 
@@ -30,7 +42,7 @@ velocidad y molesta con la precisión, y esa diferencia es la que sirve para dec
 - **NPS** desglosado en detractores (0–6), pasivos (7–8) y promotores (9–10).
 - **Las cuatro dimensiones** con su promedio y la distribución de 1 a 5 — una
   barra alta a la izquierda señala un problema concentrado, no un promedio tibio.
-- **Para qué la usan**, **tiempo ahorrado**, **confianza**, **frecuencia** y **áreas**.
+- **Áreas que participaron**, para ver dónde falta cobertura.
 - **Todo lo que escribieron**, con buscador y ordenamiento (incluido *peor
   calificación primero*, que es por donde conviene empezar a leer).
 - **Exportar CSV** para llevarlo a Excel.

@@ -467,6 +467,35 @@ function tarjetaDimension(d) {
   </div>`;
 }
 
+/**
+ * Bloques de preguntas que el formulario dejo de hacer. Se dibujan solos si
+ * vuelven a activarse y hay respuestas; mientras tanto no aparecen vacios.
+ */
+function bloquesOpcionales(m) {
+  const posibles = [
+    { datos: m.casosUso, titulo: 'Para qué usan Nova', sub: 'Cada persona pudo marcar varias tareas.' },
+    { datos: m.tiempos, titulo: 'Tiempo que dicen ahorrar', sub: 'Estimado propio de cada participante, por semana.' },
+    { datos: m.confianzas, titulo: 'Confianza en las respuestas', sub: 'Qué tanto usarían el resultado en su trabajo real.' },
+    { datos: m.frecuencias, titulo: 'Frecuencia de uso', sub: 'Cuánto la usaron durante el período de pruebas.' },
+  ].filter((b) => b.datos.length > 0);
+
+  if (!posibles.length) return '';
+
+  const columnas = posibles.map((b) => `
+    <div>
+      <h2 class="titulo-seccion">${esc(b.titulo)}</h2>
+      <p class="sub-seccion">${esc(b.sub)}</p>
+      <div class="tarjeta">${barras(b.datos, { total: m.total })}</div>
+    </div>`);
+
+  // Se agrupan de dos en dos para conservar la rejilla del resto del panel.
+  let salida = '';
+  for (let i = 0; i < columnas.length; i += 2) {
+    salida += `<section><div class="dos-col">${columnas.slice(i, i + 2).join('')}</div></section>`;
+  }
+  return salida;
+}
+
 function leerNps(n) {
   if (n === null) return '—';
   if (n >= 50) return 'Excelente';
@@ -530,35 +559,7 @@ function pintar() {
       <div class="rejilla-dim">${m.dimensiones.map(tarjetaDimension).join('')}</div>
     </section>
 
-    <section>
-      <div class="dos-col">
-        <div>
-          <h2 class="titulo-seccion">Para qué usan Nova</h2>
-          <p class="sub-seccion">Cada persona pudo marcar varias tareas.</p>
-          <div class="tarjeta">${barras(m.casosUso, { total: m.total })}</div>
-        </div>
-        <div>
-          <h2 class="titulo-seccion">Tiempo que dicen ahorrar</h2>
-          <p class="sub-seccion">Estimado propio de cada participante, por semana.</p>
-          <div class="tarjeta">${barras(m.tiempos, { total: m.total })}</div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="dos-col">
-        <div>
-          <h2 class="titulo-seccion">Confianza en las respuestas</h2>
-          <p class="sub-seccion">Qué tanto usarían el resultado en su trabajo real.</p>
-          <div class="tarjeta">${barras(m.confianzas, { total: m.total })}</div>
-        </div>
-        <div>
-          <h2 class="titulo-seccion">Frecuencia de uso</h2>
-          <p class="sub-seccion">Cuánto la usaron durante el período de pruebas.</p>
-          <div class="tarjeta">${barras(m.frecuencias, { total: m.total })}</div>
-        </div>
-      </div>
-    </section>
+    ${bloquesOpcionales(m)}
 
     <section>
       <h2 class="titulo-seccion">Áreas que participaron</h2>
@@ -666,9 +667,9 @@ function tarjetaRespuesta(f) {
       ${bloque('Lo que quisiera ver a futuro', f.futuro)}
       ${f.comentario ? bloque('Comentario adicional', f.comentario) : ''}
       <div class="meta-linea">
-        <span class="meta">${esc(f.frecuencia_uso || '—')}</span>
-        <span class="meta">Ahorro: ${esc(f.tiempo_ahorrado || '—')}</span>
-        <span class="meta">Confianza: ${esc(f.confianza || '—')}</span>
+        ${f.frecuencia_uso ? `<span class="meta">${esc(f.frecuencia_uso)}</span>` : ''}
+        ${f.tiempo_ahorrado ? `<span class="meta">Ahorro: ${esc(f.tiempo_ahorrado)}</span>` : ''}
+        ${f.confianza ? `<span class="meta">Confianza: ${esc(f.confianza)}</span>` : ''}
         ${casos.map((c) => `<span class="meta">${esc(c)}</span>`).join('')}
         <span class="meta">${esc(fecha(f.creado_en))}</span>
       </div>

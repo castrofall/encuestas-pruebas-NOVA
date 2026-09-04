@@ -242,10 +242,10 @@
   </header>
 
   <div class="portada">
-    <h1>¿Cómo te fue <em>con Nova</em>?</h1>
-    <p>Tu experiencia decide qué se arregla primero y qué se construye después. Son cuatro pasos cortos y cuenta lo que de verdad viviste: lo bueno y lo que te hizo perder tiempo.</p>
+    <h1>Gracias por participar <em>en las pruebas de Nova</em></h1>
+    <p>Nos alegra que hayas dedicado tu tiempo hoy a probarla. Ahora nos gustaría escucharte: tu opinión es la que nos dice qué está funcionando y qué falta mejorar, y de verdad agradecemos que nos la compartas.</p>
     <div class="datos-rapidos">
-      <span class="dato">⏱️ Toma 3 minutos</span>
+      <span class="dato">⏱️ Toma 2 minutos</span>
       <span class="dato">💾 Se guarda solo mientras respondes</span>
       <span class="dato">👀 Lo lee el equipo de TI</span>
     </div>
@@ -255,8 +255,7 @@
     <ol class="pasos" id="pasos">
       <li data-paso="1"><div class="barra"></div><span class="nombre">Tú</span></li>
       <li data-paso="2"><div class="barra"></div><span class="nombre">Tu experiencia</span></li>
-      <li data-paso="3"><div class="barra"></div><span class="nombre">Cómo la usaste</span></li>
-      <li data-paso="4"><div class="barra"></div><span class="nombre">Qué mejorar</span></li>
+      <li data-paso="3"><div class="barra"></div><span class="nombre">Qué mejorar</span></li>
     </ol>
   </div>
 
@@ -290,13 +289,6 @@
           <select id="area" name="area"><option value="">Selecciona tu área…</option></select>
           <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
         </div>
-
-        <fieldset id="c-frecuencia_uso">
-          <legend class="leyenda">¿Con qué frecuencia usaste Nova durante las pruebas?</legend>
-          <span class="pista">Sé honesto: si apenas la probaste, esa también es información valiosa.</span>
-          <div class="lista dos" data-radios="frecuencia_uso"></div>
-          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
-        </fieldset>
       </section>
 
       <!-- ============ PASO 2 ============ -->
@@ -349,73 +341,38 @@
 
       <!-- ============ PASO 3 ============ -->
       <section class="paso" data-paso="3" hidden>
-        <h2>¿Para qué la usaste?</h2>
-        <p class="guia">Saber en qué tareas ayuda de verdad nos dice hacia dónde llevarla.</p>
-
-        <fieldset id="c-casos_uso">
-          <legend class="leyenda">Marca todo lo que aplique</legend>
-          <span class="pista">Elige al menos una opción.</span>
-          <div class="lista dos" data-checks="casos_uso"></div>
-          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
-        </fieldset>
-
-        <fieldset id="c-tiempo_ahorrado">
-          <legend class="leyenda">¿Cuánto tiempo calculas que te ahorró por semana?</legend>
-          <span class="pista">Un estimado a ojo está perfecto.</span>
-          <div class="lista" data-radios="tiempo_ahorrado"></div>
-          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
-        </fieldset>
-
-        <fieldset id="c-confianza">
-          <legend class="leyenda">¿Confiarías en sus respuestas para tu trabajo real?</legend>
-          <div class="lista" data-radios="confianza"></div>
-          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
-        </fieldset>
-      </section>
-
-      <!-- ============ PASO 4 ============ -->
-      <section class="paso" data-paso="4" hidden>
         <h2>Ahora sí, cuéntanos</h2>
         <p class="guia">Esta parte es la que más se lee. Un ejemplo concreto vale más que un “estuvo bien”.</p>
 
         <div class="campo" id="c-lo_mejor">
           <label for="lo_mejor">¿Qué fue lo que más te gustó o te sirvió?</label>
-          <span class="pista">Lo que no querrías perder si mañana cambiara.</span>
-          <textarea id="lo_mejor" name="lo_mejor" maxlength="2000"
-            placeholder="Ej. Que me resumió un informe de 30 páginas en un párrafo útil y no tuve que leerlo completo."></textarea>
+          <textarea id="lo_mejor" name="lo_mejor" maxlength="2000"></textarea>
           <span class="contador" data-cuenta="lo_mejor"></span>
           <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
         </div>
 
         <div class="campo" id="c-problemas">
           <label for="problemas">¿Qué te falló o te frustró? <span class="opcional">(opcional)</span></label>
-          <span class="pista">Si recuerdas un caso específico, cuéntalo: es lo más fácil de arreglar.</span>
-          <textarea id="problemas" name="problemas" maxlength="2000"
-            placeholder="Ej. Le pedí datos de un CECO y me inventó un número que no existe."></textarea>
+          <textarea id="problemas" name="problemas" maxlength="2000"></textarea>
           <span class="contador" data-cuenta="problemas"></span>
         </div>
 
         <div class="campo" id="c-mejoras">
           <label for="mejoras">Si pudieras arreglar una sola cosa, ¿cuál sería?</label>
-          <span class="pista">La prioridad número uno desde tu puesto.</span>
-          <textarea id="mejoras" name="mejoras" maxlength="2000"
-            placeholder="Ej. Que no pierda el hilo de la conversación cuando cambio de tema y regreso."></textarea>
+          <textarea id="mejoras" name="mejoras" maxlength="2000"></textarea>
           <span class="contador" data-cuenta="mejoras"></span>
           <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
         </div>
 
         <div class="campo" id="c-futuro">
           <label for="futuro">¿Qué te gustaría que Nova pudiera hacer más adelante? <span class="opcional">(opcional)</span></label>
-          <span class="pista">Sueña sin límite: conexiones con otros sistemas, tareas que hoy haces a mano, lo que sea.</span>
-          <textarea id="futuro" name="futuro" maxlength="2000"
-            placeholder="Ej. Que se conecte a ClickUp y me arme el reporte semanal sin que yo lo pida."></textarea>
+          <textarea id="futuro" name="futuro" maxlength="2000"></textarea>
           <span class="contador" data-cuenta="futuro"></span>
         </div>
 
         <div class="campo" id="c-comentario">
           <label for="comentario">¿Algo más que quieras decirnos? <span class="opcional">(opcional)</span></label>
-          <textarea id="comentario" name="comentario" maxlength="2000" style="min-height:70px"
-            placeholder="Todo lo que no cupo arriba."></textarea>
+          <textarea id="comentario" name="comentario" maxlength="2000" style="min-height:70px"></textarea>
           <span class="contador" data-cuenta="comentario"></span>
         </div>
 
@@ -459,48 +416,13 @@ const AREAS = ['Tecnología de la Información','Operaciones / Producción','Cad
   'Comercial / Ventas','Mercadeo','Finanzas / Contabilidad','Talento Humano','Calidad','Mantenimiento',
   'Dirección / Gerencia','Otra'];
 
-const FRECUENCIAS = ['Todos los días','Varias veces por semana','Una vez por semana','Solo la probé un par de veces'];
-
-const CASOS_USO = ['Redactar o mejorar textos y correos','Resumir documentos o reuniones',
-  'Analizar datos o generar reportes','Traducir contenido','Programar o revisar código',
-  'Buscar información interna','Generar ideas o lluvia de ideas','Automatizar tareas repetitivas',
-  'Atender consultas de usuarios','Otro'];
-
-const TIEMPOS = ['Nada, me tomó el mismo tiempo','Menos de 1 hora por semana','Entre 1 y 3 horas por semana',
-  'Entre 3 y 5 horas por semana','Más de 5 horas por semana'];
-
-const CONFIANZAS = ['Sí, usaría su respuesta tal cual','Sí, pero siempre la reviso antes',
-  'Solo para tareas de bajo riesgo','Todavía no confío en sus respuestas'];
-
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 /* ------------------------------------------------------------------ */
 /* Construcción de los controles                                       */
 /* ------------------------------------------------------------------ */
-const idSeguro = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-
 $('#area').append(...AREAS.map((a) => new Option(a, a)));
-
-function pintarRadios(campo, opciones) {
-  const cont = $(`[data-radios="${campo}"]`);
-  if (!cont) return;
-  cont.innerHTML = opciones.map((o) => `
-    <label class="item">
-      <input type="radio" name="${campo}" value="${o.replace(/"/g, '&quot;')}" id="${campo}-${idSeguro(o)}">
-      <span>${o}</span>
-    </label>`).join('');
-}
-
-function pintarChecks(campo, opciones) {
-  const cont = $(`[data-checks="${campo}"]`);
-  if (!cont) return;
-  cont.innerHTML = opciones.map((o) => `
-    <label class="item">
-      <input type="checkbox" name="${campo}" value="${o.replace(/"/g, '&quot;')}" id="${campo}-${idSeguro(o)}">
-      <span>${o}</span>
-    </label>`).join('');
-}
 
 function pintarEscala(cont) {
   const campo = cont.dataset.escala;
@@ -525,10 +447,6 @@ function pintarNps(cont) {
   }).join('');
 }
 
-pintarRadios('frecuencia_uso', FRECUENCIAS);
-pintarRadios('tiempo_ahorrado', TIEMPOS);
-pintarRadios('confianza', CONFIANZAS);
-pintarChecks('casos_uso', CASOS_USO);
 $$('[data-escala]').forEach(pintarEscala);
 $$('[data-nps]').forEach(pintarNps);
 
@@ -552,14 +470,10 @@ function recolectar() {
   for (const c of ['nombre','correo','area','lo_mejor','problemas','mejoras','futuro','comentario']) {
     d[c] = ($('#' + c)?.value || '').trim();
   }
-  for (const c of ['frecuencia_uso','tiempo_ahorrado','confianza']) {
-    d[c] = $(`input[name="${c}"]:checked`)?.value || '';
-  }
   for (const c of ['satisfaccion','calidad','velocidad','facilidad','nps']) {
     const v = $(`input[name="${c}"]:checked`)?.value;
     d[c] = v === undefined ? null : Number(v);
   }
-  d.casos_uso = $$('input[name="casos_uso"]:checked').map((i) => i.value);
   d.contactable = $('#contactable').checked;
   return d;
 }
@@ -574,9 +488,7 @@ function restaurarBorrador() {
   if (!d) return;
   for (const [k, v] of Object.entries(d)) {
     if (v === null || v === '' || (Array.isArray(v) && !v.length)) continue;
-    if (k === 'casos_uso') {
-      v.forEach((val) => { const i = $$(`input[name="casos_uso"]`).find((x) => x.value === val); if (i) i.checked = true; });
-    } else if (k === 'contactable') {
+    if (k === 'contactable') {
       $('#contactable').checked = Boolean(v);
     } else {
       const campo = $('#' + k);
@@ -613,7 +525,6 @@ const REGLAS = {
              : !RE_CORREO.test(d.correo) ? 'Ese correo no tiene un formato válido.'
              : !d.correo.toLowerCase().endsWith('@' + DOMINIO) ? `El correo debe terminar en @${DOMINIO}.` : null,
     area: (d) => !d.area ? 'Selecciona tu área.' : null,
-    frecuencia_uso: (d) => !d.frecuencia_uso ? 'Elige una opción.' : null,
   },
   2: {
     satisfaccion: (d) => d.satisfaccion === null ? 'Califica tu experiencia general.' : null,
@@ -623,11 +534,6 @@ const REGLAS = {
     nps: (d) => d.nps === null ? 'Elige un número del 0 al 10.' : null,
   },
   3: {
-    casos_uso: (d) => !d.casos_uso.length ? 'Marca al menos una opción.' : null,
-    tiempo_ahorrado: (d) => !d.tiempo_ahorrado ? 'Elige una opción.' : null,
-    confianza: (d) => !d.confianza ? 'Elige una opción.' : null,
-  },
-  4: {
     lo_mejor: (d) => d.lo_mejor.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
     mejoras: (d) => d.mejoras.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
   },
@@ -680,7 +586,7 @@ $('#form').addEventListener('change', (e) => {
 /* ------------------------------------------------------------------ */
 /* Navegación entre pasos                                              */
 /* ------------------------------------------------------------------ */
-const TOTAL = 4;
+const TOTAL = 3;
 let pasoActual = 1;
 
 function mostrarPaso(n) {
@@ -756,7 +662,7 @@ async function enviar() {
       // Si el servidor marcó campos concretos, se muestran donde corresponde.
       if (cuerpo.errores) {
         for (const [campo, msg] of Object.entries(cuerpo.errores)) marcarError(campo, msg);
-        const pasoConError = [1, 2, 3, 4].find((p) => Object.keys(REGLAS[p]).some((c) => cuerpo.errores[c]));
+        const pasoConError = [1, 2, 3].find((p) => Object.keys(REGLAS[p]).some((c) => cuerpo.errores[c]));
         if (pasoConError && pasoConError !== pasoActual) mostrarPaso(pasoConError);
       }
       mostrarAviso(cuerpo.error || 'No pudimos guardar tu respuesta. Intenta de nuevo.');

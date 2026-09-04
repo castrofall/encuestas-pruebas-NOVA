@@ -12,7 +12,6 @@ CREATE TABLE IF NOT EXISTS feedback_nova (
   nombre            TEXT         NOT NULL,
   correo            TEXT         NOT NULL,
   area              TEXT,
-  frecuencia_uso    TEXT,
 
   -- Escalas cuantitativas
   satisfaccion      SMALLINT     CHECK (satisfaccion   BETWEEN 1 AND 5),
@@ -21,7 +20,10 @@ CREATE TABLE IF NOT EXISTS feedback_nova (
   facilidad         SMALLINT     CHECK (facilidad      BETWEEN 1 AND 5),
   nps               SMALLINT     CHECK (nps            BETWEEN 0 AND 10),
 
-  -- Uso real
+  -- EN PAUSA: el formulario dejo de preguntar esto, pero las columnas quedan
+  -- para no perder respuestas viejas y para que reactivarlo sea inmediato.
+  -- El panel oculta solo las secciones que se quedan sin datos.
+  frecuencia_uso    TEXT,
   casos_uso         TEXT[]       NOT NULL DEFAULT '{}',
   tiempo_ahorrado   TEXT,
   confianza         TEXT,

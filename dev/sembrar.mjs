@@ -28,14 +28,6 @@ const PERSONAS = [
   ['Héctor Mauricio Solís', 'Comercial / Ventas'],
 ];
 
-const FRECUENCIAS = ['Todos los días', 'Varias veces por semana', 'Una vez por semana', 'Solo la probé un par de veces'];
-const CASOS = ['Redactar o mejorar textos y correos', 'Resumir documentos o reuniones', 'Analizar datos o generar reportes',
-  'Traducir contenido', 'Programar o revisar código', 'Buscar información interna', 'Generar ideas o lluvia de ideas',
-  'Automatizar tareas repetitivas', 'Atender consultas de usuarios', 'Otro'];
-const TIEMPOS = ['Nada, me tomó el mismo tiempo', 'Menos de 1 hora por semana', 'Entre 1 y 3 horas por semana',
-  'Entre 3 y 5 horas por semana', 'Más de 5 horas por semana'];
-const CONFIANZAS = ['Sí, usaría su respuesta tal cual', 'Sí, pero siempre la reviso antes',
-  'Solo para tareas de bajo riesgo', 'Todavía no confío en sus respuestas'];
 
 const MEJOR = [
   'Me resumió un informe de 40 páginas en tres párrafos que sí pude usar en la reunión.',
@@ -78,12 +70,6 @@ const FUTURO = [
 ];
 
 const azar = (a) => a[Math.floor(Math.random() * a.length)];
-const entre = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
-
-function muestra(lista, min, max) {
-  const copia = [...lista].sort(() => Math.random() - 0.5);
-  return copia.slice(0, entre(min, max));
-}
 
 function correoDe(nombre) {
   // Descompone los acentos y descarta los signos combinantes (U+0300 a U+036F).
@@ -104,15 +90,11 @@ function generar(i) {
     nombre,
     correo: correoDe(nombre),
     area,
-    frecuencia_uso: azar(FRECUENCIAS),
     satisfaccion: base,
     calidad: cerca(base),
     velocidad: cerca(base),
     facilidad: cerca(base + 1),
     nps: Math.max(0, Math.min(10, base * 2 + azar([-2, -1, 0, 0, 1]))),
-    casos_uso: muestra(CASOS, 1, 4),
-    tiempo_ahorrado: azar(TIEMPOS),
-    confianza: azar(CONFIANZAS),
     lo_mejor: azar(MEJOR),
     problemas: azar(PROBLEMAS),
     mejoras: azar(MEJORAS),
