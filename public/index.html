@@ -54,13 +54,6 @@
     margin:0; font-size:16px; line-height:1.6;
     color:rgba(232,225,245,.86); max-width:60ch;
   }
-  .datos-rapidos{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-  .dato{
-    display:inline-flex;align-items:center;gap:7px;
-    background:rgba(255,255,255,.09); border:1px solid rgba(232,225,245,.20);
-    color:var(--lavanda-suave); border-radius:999px;
-    padding:6px 13px; font-size:12.5px; font-weight:500;
-  }
 
   /* ---------- Progreso ---------- */
   .progreso{margin:0 0 -1px;background:var(--papel);border-radius:var(--r) var(--r) 0 0;padding:18px 22px 0}
@@ -243,12 +236,7 @@
 
   <div class="portada">
     <h1>Gracias por participar <em>en las pruebas de Nova</em></h1>
-    <p>Nos alegra que hayas dedicado tu tiempo hoy a probarla. Ahora nos gustaría escucharte: tu opinión es la que nos dice qué está funcionando y qué falta mejorar, y de verdad agradecemos que nos la compartas.</p>
-    <div class="datos-rapidos">
-      <span class="dato">⏱️ Toma 2 minutos</span>
-      <span class="dato">💾 Se guarda solo mientras respondes</span>
-      <span class="dato">👀 Lo lee el equipo de TI</span>
-    </div>
+    <p>Nos alegra que hayas dedicado tu tiempo hoy a probar Nova. Ahora nos gustaría escucharte: tu opinión es la que nos dice qué está funcionando y qué falta mejorar, y de verdad agradecemos que nos la compartas para mejorar.</p>
   </div>
 
   <div class="progreso">
@@ -352,9 +340,10 @@
         </div>
 
         <div class="campo" id="c-problemas">
-          <label for="problemas">¿Qué te falló o te frustró? <span class="opcional">(opcional)</span></label>
+          <label for="problemas">¿Qué te falló o te frustró?</label>
           <textarea id="problemas" name="problemas" maxlength="2000"></textarea>
           <span class="contador" data-cuenta="problemas"></span>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
         </div>
 
         <div class="campo" id="c-mejoras">
@@ -535,6 +524,7 @@ const REGLAS = {
   },
   3: {
     lo_mejor: (d) => d.lo_mejor.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
+    problemas: (d) => d.problemas.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
     mejoras: (d) => d.mejoras.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
   },
 };

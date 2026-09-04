@@ -18,7 +18,7 @@ mientras responde, así que si cierra la pestaña no pierde nada.
 |---|---|
 | **1. Quién eres** | Nombre completo · Correo `@ternova.group` · Área |
 | **2. Tu experiencia** | Experiencia general, calidad de las respuestas, velocidad y facilidad de uso (1 a 5) · Recomendación (NPS, 0 a 10) |
-| **3. Qué mejorar** | Lo que más le gustó · Lo que le falló *(opcional)* · Lo primero que arreglaría · Lo que quisiera ver a futuro *(opcional)* · Comentario libre *(opcional)* · Si acepta que lo contacten |
+| **3. Qué mejorar** | Lo que más le gustó · Lo que le falló · Lo primero que arreglaría · Lo que quisiera ver a futuro *(opcional)* · Comentario libre *(opcional)* · Si acepta que lo contacten |
 
 Las escalas están separadas a propósito: una persona puede estar encantada con la
 velocidad y molesta con la precisión, y esa diferencia es la que sirve para decidir.

@@ -44,7 +44,6 @@ const PROBLEMAS = [
   'Pierde el hilo cuando cambio de tema y regreso al anterior.',
   'A veces responde muy largo y termino leyendo más de lo que necesitaba.',
   'No conoce nada de nuestros sistemas internos, así que para eso no me sirvió.',
-  '',
   'Se tardó bastante cuando le pegué un documento largo.',
   'Repite información que ya le había dado en el mismo chat.',
 ];
