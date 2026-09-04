@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Resultados de las pruebas de Nova · Ternova</title>
+<style>
+  :root{
+    --indigo:#1D0447; --indigo-hondo:#13002E; --indigo-medio:#3A1380;
+    --lavanda:#9A83D6; --lavanda-suave:#E8E1F5;
+    --naranja:#FF6A00; --papel:#F6F3EE; --tinta:#0E0320;
+
+    /* Estados del NPS. Paleta validada para daltonismo y contraste sobre --papel. */
+    --detractor:#B3261E; --pasivo:#B8770A; --promotor:#1B7F5A;
+
+    /* Rampa secuencial de un solo tono (magnitud). */
+    --m1:#E8E1F5; --m2:#C4B0E8; --m3:#9A83D6; --m4:#6B44B8; --m5:#3A1380;
+
+    --linea:#E2DCEC; --linea-fuerte:#CFC5E0;
+    --texto:#2A1B45; --texto-suave:#6B5E85; --texto-tenue:#948AAB;
+    --r:14px; --r-chico:10px;
+    --sombra:0 1px 2px rgba(19,0,46,.05), 0 6px 20px rgba(19,0,46,.07);
+    --fuente:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+    --mono:'Cascadia Mono',Consolas,'SF Mono',Menlo,monospace;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:var(--fuente);color:var(--texto);background:#EFEBF5;
+    min-height:100vh;-webkit-font-smoothing:antialiased;font-size:14px;
+  }
+
+  /* ================= Acceso ================= */
+  .acceso{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+    background:var(--indigo-hondo);
+    background-image:
+      radial-gradient(900px 520px at 20% -10%, rgba(58,19,128,.85), transparent 60%),
+      radial-gradient(700px 420px at 90% 10%, rgba(154,131,214,.28), transparent 62%);
+  }
+  .acceso.oculto{display:none}
+  .caja{
+    width:100%;max-width:392px;background:var(--papel);
+    border-radius:var(--r);padding:34px 30px;box-shadow:0 18px 50px rgba(19,0,46,.42);
+  }
+  .caja img{height:26px;margin-bottom:22px;display:block}
+  .caja h1{margin:0 0 6px;font-size:20px;color:var(--indigo);letter-spacing:-.01em}
+  .caja p{margin:0 0 22px;font-size:13.5px;color:var(--texto-suave);line-height:1.55}
+  .caja label{display:block;font-size:13.5px;font-weight:600;margin-bottom:7px}
+  .caja input{
+    width:100%;padding:11px 13px;font-family:inherit;font-size:15px;
+    border:1.5px solid var(--linea-fuerte);border-radius:var(--r-chico);background:#fff;
+  }
+  .caja input:focus{outline:none;border-color:var(--indigo-medio);box-shadow:0 0 0 3px rgba(58,19,128,.14)}
+  .caja button{
+    width:100%;margin-top:16px;padding:12px;background:var(--naranja);color:#fff;
+    border:0;border-radius:var(--r-chico);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;
+  }
+  .caja button:hover:not(:disabled){background:#E85F00}
+  .caja button:disabled{opacity:.6;cursor:not-allowed}
+  .caja .err{
+    display:none;margin-top:13px;padding:10px 12px;background:#FDEDEC;
+    border:1.5px solid rgba(179,38,30,.32);border-radius:var(--r-chico);
+    color:#8C1D18;font-size:13px;line-height:1.5;
+  }
+  .caja .err.visible{display:block}
+
+  /* ================= Estructura ================= */
+  .panel{display:none}
+  .panel.visible{display:block}
+
+  .barra-sup{
+    position:sticky;top:0;z-index:20;background:var(--indigo);color:#fff;
+    padding:13px 22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    box-shadow:0 2px 14px rgba(19,0,46,.28);
+  }
+  .barra-sup img{height:24px}
+  .barra-sup .titulo{font-size:15px;font-weight:600;letter-spacing:-.01em}
+  .barra-sup .sub{font-size:12px;color:rgba(232,225,245,.66)}
+  .barra-sup .relleno{flex:1}
+  .barra-sup button{
+    background:rgba(255,255,255,.10);color:#fff;border:1px solid rgba(232,225,245,.24);
+    border-radius:8px;padding:7px 13px;font-family:inherit;font-size:12.5px;font-weight:500;cursor:pointer;
+  }
+  .barra-sup button:hover{background:rgba(255,255,255,.19)}
+
+  main{max-width:1180px;margin:0 auto;padding:22px 20px 64px}
+  section{margin-bottom:26px}
+  h2.titulo-seccion{
+    margin:0 0 4px;font-size:16px;font-weight:700;color:var(--indigo);letter-spacing:-.01em;
+  }
+  .sub-seccion{margin:0 0 14px;font-size:13px;color:var(--texto-suave);line-height:1.5}
+
+  .tarjeta{background:var(--papel);border-radius:var(--r);padding:20px 22px;box-shadow:var(--sombra)}
+
+  /* ================= Indicadores ================= */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));gap:14px}
+  .kpi{background:var(--papel);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sombra)}
+  .kpi .rotulo{
+    font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--texto-tenue);margin-bottom:8px;
+  }
+  .kpi .cifra{font-size:38px;font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--indigo)}
+  .kpi .cifra.chica{font-size:29px}
+  .kpi .nota{margin-top:7px;font-size:12.5px;color:var(--texto-suave);line-height:1.45}
+  .kpi.destacado{background:var(--indigo);color:#fff}
+  .kpi.destacado .rotulo{color:rgba(232,225,245,.66)}
+  .kpi.destacado .cifra{color:#fff}
+  .kpi.destacado .nota{color:rgba(232,225,245,.80)}
+
+  /* ================= Barras ================= */
+  .grafico{margin-top:4px}
+  .fila{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:baseline;margin-bottom:11px}
+  .fila:last-child{margin-bottom:0}
+  .fila .etq{font-size:13px;color:var(--texto);line-height:1.35}
+  .fila .val{font-size:12.5px;font-weight:600;color:var(--texto-suave);font-variant-numeric:tabular-nums}
+  .pista-barra{
+    grid-column:1/-1;height:9px;background:#E6E0F0;border-radius:99px;overflow:hidden;
+  }
+  .barra{
+    height:100%;border-radius:99px;background:var(--m5);
+    transition:width .5s cubic-bezier(.22,.61,.36,1);
+  }
+
+  /* Barra apilada del NPS: 2px de fondo separa los segmentos. */
+  .apilada{
+    display:flex;height:38px;border-radius:8px;overflow:hidden;gap:2px;background:var(--papel);
+  }
+  .apilada .seg{
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    font-size:12.5px;font-weight:600;min-width:0;overflow:hidden;white-space:nowrap;
+    transition:flex-grow .5s cubic-bezier(.22,.61,.36,1);
+  }
+  .apilada .seg:first-child{border-radius:8px 0 0 8px}
+  .apilada .seg:last-child{border-radius:0 8px 8px 0}
+  .leyenda{display:flex;flex-wrap:wrap;gap:16px;margin-top:13px}
+  .leyenda .li{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--texto-suave)}
+  .leyenda .punto{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
+
+  /* ================= Dimensiones ================= */
+  .rejilla-dim{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:14px}
+  .dim{background:var(--papel);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sombra)}
+  .dim .cabeza{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .dim .nombre{font-size:13.5px;font-weight:600;color:var(--texto)}
+  .dim .prom{font-size:26px;font-weight:700;color:var(--indigo);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .dim .prom small{font-size:13px;font-weight:500;color:var(--texto-tenue)}
+  .cubos{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;align-items:end;height:66px}
+  .cubo{display:flex;flex-direction:column;justify-content:flex-end;height:100%;position:relative}
+  .cubo .col{
+    border-radius:4px 4px 0 0;min-height:3px;
+    transition:height .5s cubic-bezier(.22,.61,.36,1);
+  }
+  .cubo .n{
+    position:absolute;top:-15px;left:0;right:0;text-align:center;
+    font-size:10.5px;font-weight:600;color:var(--texto-suave);font-variant-numeric:tabular-nums;
+  }
+  .cubos-pie{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:6px;
+    padding-top:6px;border-top:1px solid var(--linea);
+  }
+  .cubos-pie span{text-align:center;font-size:11px;color:var(--texto-tenue);font-weight:500}
+
+  /* ================= Rejilla de dos columnas ================= */
+  .dos-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:820px){ .dos-col{grid-template-columns:1fr} }
+
+  /* ================= Respuestas abiertas ================= */
+  .filtros{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .filtros input,.filtros select{
+    padding:9px 12px;font-family:inherit;font-size:13.5px;background:var(--papel);
+    border:1.5px solid var(--linea-fuerte);border-radius:var(--r-chico);color:var(--texto);
+  }
+  .filtros input{flex:1;min-width:210px}
+  .filtros input:focus,.filtros select:focus{outline:none;border-color:var(--indigo-medio)}
+  .filtros .conteo{font-size:12.5px;color:var(--texto-suave);margin-left:auto}
+
+  .respuesta{
+    background:var(--papel);border-radius:var(--r);padding:17px 19px;
+    margin-bottom:11px;box-shadow:var(--sombra);
+  }
+  .respuesta .cabeza{
+    display:flex;align-items:center;gap:11px;flex-wrap:wrap;
+    cursor:pointer;user-select:none;
+  }
+  .avatar{
+    width:34px;height:34px;border-radius:50%;background:var(--indigo-medio);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex:0 0 auto;
+  }
+  .quien{min-width:0;flex:1}
+  .quien .n{font-size:14px;font-weight:600;color:var(--texto);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .quien .m{font-size:12px;color:var(--texto-tenue);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .insignias{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .insignia{
+    padding:3px 9px;border-radius:999px;font-size:11.5px;font-weight:600;
+    background:var(--lavanda-suave);color:var(--indigo-medio);white-space:nowrap;
+  }
+  .insignia.nps-det{background:#FBE9E7;color:#8C1D18}
+  .insignia.nps-pas{background:#FBF0DC;color:#7A4E06}
+  .insignia.nps-pro{background:#E3F2EC;color:#125C41}
+  .flecha{color:var(--texto-tenue);font-size:12px;transition:transform .2s;flex:0 0 auto}
+  .respuesta.abierta .flecha{transform:rotate(90deg)}
+
+  .detalle{display:none;margin-top:15px;padding-top:15px;border-top:1px solid var(--linea)}
+  .respuesta.abierta .detalle{display:block}
+  .bloque{margin-bottom:14px}
+  .bloque:last-child{margin-bottom:0}
+  .bloque .q{
+    font-size:11.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--texto-tenue);margin-bottom:5px;
+  }
+  .bloque .a{font-size:14px;line-height:1.6;color:var(--texto);white-space:pre-wrap;word-break:break-word}
+  .bloque .a.vacio{color:var(--texto-tenue);font-style:italic}
+  .meta-linea{
+    display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;padding-top:13px;
+    border-top:1px solid var(--linea);
+  }
+  .meta{
+    font-size:11.5px;color:var(--texto-suave);background:#EFEBF5;
+    padding:4px 9px;border-radius:6px;
+  }
+  .notas-esc{display:flex;gap:14px;flex-wrap:wrap;margin-top:3px}
+  .esc-mini{font-size:12px;color:var(--texto-suave)}
+  .esc-mini b{color:var(--texto);font-variant-numeric:tabular-nums}
+
+  /* ================= Estados ================= */
+  .vacio-total{text-align:center;padding:52px 20px;color:var(--texto-suave)}
+  .vacio-total .icono{font-size:38px;margin-bottom:12px;opacity:.5}
+  .vacio-total h3{margin:0 0 7px;font-size:16px;color:var(--indigo)}
+  .vacio-total p{margin:0;font-size:13.5px;line-height:1.55}
+  .cargando{text-align:center;padding:52px;color:var(--texto-suave);font-size:14px}
+
+  .aviso-sesion{
+    display:none;position:fixed;left:50%;bottom:22px;transform:translateX(-50%);
+    background:var(--indigo);color:#fff;padding:12px 20px;border-radius:999px;
+    font-size:13.5px;box-shadow:0 8px 26px rgba(19,0,46,.36);z-index:60;
+  }
+  .aviso-sesion.visible{display:block}
+
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+  @media print{ .barra-sup,.filtros{display:none} body{background:#fff} }
+</style>
+</head>
+<body>
+
+<!-- ===================== ACCESO ===================== -->
+<div class="acceso" id="acceso">
+  <div class="caja">
+    <img src="/assets/ternova-logo.png" alt="Ternova">
+    <h1>Resultados de Nova</h1>
+    <p>Panel interno de retroalimentación. Ingresa la contraseña que te compartió el equipo de TI.</p>
+    <form id="form-acceso">
+      <label for="pass">Contraseña</label>
+      <input type="password" id="pass" autocomplete="current-password" required>
+      <button type="submit" id="btn-entrar">Entrar</button>
+      <div class="err" id="err-acceso" role="alert"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== PANEL ===================== -->
+<div class="panel" id="panel">
+  <div class="barra-sup">
+    <img src="/assets/ternova-isotipo.png" alt="">
+    <div>
+      <div class="titulo">Retroalimentación de Nova</div>
+      <div class="sub" id="sello">—</div>
+    </div>
+    <div class="relleno"></div>
+    <button id="btn-refrescar">↻ Actualizar</button>
+    <button id="btn-csv">↓ Exportar CSV</button>
+    <button id="btn-salir">Salir</button>
+  </div>
+
+  <main id="contenido">
+    <div class="cargando">Cargando respuestas…</div>
+  </main>
+</div>
+
+<div class="aviso-sesion" id="aviso-sesion"></div>
+
+<script type="module">
+'use strict';
+
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+const CLAVE_TOKEN = 'feedback-nova-token';
+let token = sessionStorage.getItem(CLAVE_TOKEN) || '';
+let datos = null;
+let temporizador = null;
+
+/* Escapa todo lo que venga de la base de datos antes de insertarlo como HTML. */
+const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+const fmt = (n) => new Intl.NumberFormat('es-SV').format(n);
+
+function fecha(iso, conHora = true) {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '—';
+  const opciones = conHora
+    ? { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }
+    : { day: '2-digit', month: 'short', year: 'numeric' };
+  return d.toLocaleString('es-SV', opciones);
+}
+
+const iniciales = (nombre) => String(nombre || '?').trim().split(/\s+/).slice(0, 2)
+  .map((p) => p[0] ?? '').join('').toUpperCase() || '?';
+
+/* ------------------------------------------------------------------ */
+/* Acceso                                                              */
+/* ------------------------------------------------------------------ */
+$('#form-acceso').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = $('#btn-entrar');
+  const err = $('#err-acceso');
+  btn.disabled = true;
+  btn.textContent = 'Verificando…';
+  err.classList.remove('visible');
+
+  try {
+    const r = await fetch('/api/acceso', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: $('#pass').value }),
+    });
+    const c = await r.json().catch(() => ({}));
+
+    if (!r.ok) {
+      err.textContent = c.error || 'No pudimos verificar la contraseña.';
+      err.classList.add('visible');
+      return;
+    }
+    token = c.token;
+    sessionStorage.setItem(CLAVE_TOKEN, token);
+    $('#pass').value = '';
+    abrirPanel();
+  } catch {
+    err.textContent = 'No pudimos conectarnos. Revisa tu conexión.';
+    err.classList.add('visible');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Entrar';
+  }
+});
+
+function abrirPanel() {
+  $('#acceso').classList.add('oculto');
+  $('#panel').classList.add('visible');
+  cargar();
+  clearInterval(temporizador);
+  temporizador = setInterval(() => cargar(true), 60_000);
+}
+
+function cerrarSesion(mensaje) {
+  clearInterval(temporizador);
+  token = '';
+  sessionStorage.removeItem(CLAVE_TOKEN);
+  $('#panel').classList.remove('visible');
+  $('#acceso').classList.remove('oculto');
+  if (mensaje) {
+    const a = $('#aviso-sesion');
+    a.textContent = mensaje;
+    a.classList.add('visible');
+    setTimeout(() => a.classList.remove('visible'), 5000);
+  }
+}
+
+$('#btn-salir').addEventListener('click', () => cerrarSesion(null));
+$('#btn-refrescar').addEventListener('click', () => cargar());
+
+/* ------------------------------------------------------------------ */
+/* Carga de datos                                                      */
+/* ------------------------------------------------------------------ */
+async function cargar(silencioso = false) {
+  if (!token) return;
+  if (!silencioso && !datos) $('#contenido').innerHTML = '<div class="cargando">Cargando respuestas…</div>';
+
+  try {
+    const r = await fetch('/api/respuestas', { headers: { Authorization: 'Bearer ' + token } });
+
+    if (r.status === 401) return cerrarSesion('Tu sesión expiró por inactividad. Vuelve a ingresar.');
+
+    const c = await r.json().catch(() => ({}));
+    if (!r.ok) {
+      $('#contenido').innerHTML =
+        `<div class="vacio-total"><div class="icono">⚠️</div><h3>No pudimos cargar los datos</h3><p>${esc(c.error || 'Intenta de nuevo.')}</p></div>`;
+      return;
+    }
+
+    // La sesión se renueva mientras el panel siga en uso.
+    if (c.token) { token = c.token; sessionStorage.setItem(CLAVE_TOKEN, token); }
+
+    datos = c;
+    $('#sello').textContent = `${fmt(c.metricas.total)} respuestas · actualizado ${new Date().toLocaleTimeString('es-SV', { hour: '2-digit', minute: '2-digit' })}`;
+    pintar();
+  } catch {
+    if (!silencioso) {
+      $('#contenido').innerHTML =
+        '<div class="vacio-total"><div class="icono">📡</div><h3>Sin conexión</h3><p>No pudimos comunicarnos con el servidor.</p></div>';
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Componentes de gráfico                                              */
+/* ------------------------------------------------------------------ */
+/** Barras horizontales para magnitud: un solo tono, valor siempre visible. */
+function barras(items, { total, sufijo = '' } = {}) {
+  if (!items.length) return '<p class="sub-seccion" style="margin:0">Sin datos todavía.</p>';
+  const tope = Math.max(...items.map((i) => i.n), 1);
+  const base = total || items.reduce((a, b) => a + b.n, 0);
+
+  return '<div class="grafico">' + items.map((i) => {
+    const pct = base ? Math.round((i.n / base) * 100) : 0;
+    return `<div class="fila">
+      <span class="etq">${esc(i.etiqueta)}</span>
+      <span class="val">${fmt(i.n)}${sufijo} · ${pct}%</span>
+      <div class="pista-barra"><div class="barra" style="width:${(i.n / tope) * 100}%"></div></div>
+    </div>`;
+  }).join('') + '</div>';
+}
+
+/** Barra apilada del NPS. Cada segmento lleva su etiqueta encima del color. */
+function barraNps(nps) {
+  if (!nps.total) return '<p class="sub-seccion" style="margin:0">Sin datos todavía.</p>';
+  const grupos = [
+    { etq: 'Detractores', sub: '0 a 6', n: nps.detractores, color: 'var(--detractor)' },
+    { etq: 'Pasivos', sub: '7 y 8', n: nps.pasivos, color: 'var(--pasivo)' },
+    { etq: 'Promotores', sub: '9 y 10', n: nps.promotores, color: 'var(--promotor)' },
+  ];
+
+  const segmentos = grupos.filter((g) => g.n > 0).map((g) => {
+    const pct = Math.round((g.n / nps.total) * 100);
+    return `<div class="seg" style="flex:${g.n} 1 0;background:${g.color}" title="${esc(g.etq)}: ${g.n} (${pct}%)">${pct >= 8 ? pct + '%' : ''}</div>`;
+  }).join('');
+
+  const leyenda = grupos.map((g) =>
+    `<span class="li"><span class="punto" style="background:${g.color}"></span>${esc(g.etq)} (${esc(g.sub)}) · <b style="color:var(--texto)">${fmt(g.n)}</b></span>`
+  ).join('');
+
+  return `<div class="apilada">${segmentos}</div><div class="leyenda">${leyenda}</div>`;
+}
+
+/** Distribución 1-5 de una dimensión, en columnas con rampa de un solo tono. */
+function tarjetaDimension(d) {
+  const tope = Math.max(...d.distribucion.map((c) => c.n), 1);
+  const tonos = ['var(--m1)', 'var(--m2)', 'var(--m3)', 'var(--m4)', 'var(--m5)'];
+
+  const columnas = d.distribucion.map((c, i) => `
+    <div class="cubo" title="${c.etiqueta} de 5: ${c.n} ${c.n === 1 ? 'respuesta' : 'respuestas'}">
+      ${c.n ? `<span class="n">${c.n}</span>` : ''}
+      <div class="col" style="height:${c.n ? Math.max((c.n / tope) * 100, 5) : 2}%;background:${tonos[i]}"></div>
+    </div>`).join('');
+
+  return `<div class="dim">
+    <div class="cabeza">
+      <span class="nombre">${esc(d.etiqueta)}</span>
+      <span class="prom">${d.promedio ?? '—'}<small> / 5</small></span>
+    </div>
+    <div class="cubos">${columnas}</div>
+    <div class="cubos-pie"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+  </div>`;
+}
+
+function leerNps(n) {
+  if (n === null) return '—';
+  if (n >= 50) return 'Excelente';
+  if (n >= 0) return 'Aceptable';
+  if (n >= -50) return 'Necesita atención';
+  return 'Crítico';
+}
+
+/* ------------------------------------------------------------------ */
+/* Render del panel                                                    */
+/* ------------------------------------------------------------------ */
+function pintar() {
+  const m = datos.metricas;
+
+  if (!m.total) {
+    $('#contenido').innerHTML = `<div class="vacio-total">
+      <div class="icono">📭</div>
+      <h3>Todavía no hay respuestas</h3>
+      <p>En cuanto alguien complete el formulario, sus respuestas aparecerán aquí.</p>
+    </div>`;
+    return;
+  }
+
+  const dias = m.porDia.length;
+
+  $('#contenido').innerHTML = `
+    <section>
+      <div class="kpis">
+        <div class="kpi">
+          <div class="rotulo">Respuestas</div>
+          <div class="cifra">${fmt(m.total)}</div>
+          <div class="nota">${fmt(m.participantes)} ${m.participantes === 1 ? 'persona distinta' : 'personas distintas'} · ${dias} ${dias === 1 ? 'día' : 'días'} con actividad</div>
+        </div>
+        <div class="kpi destacado">
+          <div class="rotulo">NPS</div>
+          <div class="cifra">${m.nps.puntaje === null ? '—' : (m.nps.puntaje > 0 ? '+' : '') + m.nps.puntaje}</div>
+          <div class="nota">${leerNps(m.nps.puntaje)} · promotores menos detractores</div>
+        </div>
+        <div class="kpi">
+          <div class="rotulo">Experiencia general</div>
+          <div class="cifra">${m.dimensiones[0].promedio ?? '—'}<span style="font-size:18px;color:var(--texto-tenue);font-weight:500"> / 5</span></div>
+          <div class="nota">Promedio de todas las respuestas</div>
+        </div>
+        <div class="kpi">
+          <div class="rotulo">Abiertos a conversar</div>
+          <div class="cifra">${fmt(m.contactables)}</div>
+          <div class="nota">Autorizaron que se les contacte para profundizar</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="titulo-seccion">Qué tan probable es que recomienden Nova</h2>
+      <p class="sub-seccion">Escala de 0 a 10. El NPS resta el porcentaje de detractores al de promotores; los pasivos cuentan en el total pero no suman ni restan.</p>
+      <div class="tarjeta">${barraNps(m.nps)}</div>
+    </section>
+
+    <section>
+      <h2 class="titulo-seccion">Cómo califican cada aspecto</h2>
+      <p class="sub-seccion">Promedio sobre 5 y distribución de las calificaciones. Una barra alta a la izquierda señala un problema concentrado.</p>
+      <div class="rejilla-dim">${m.dimensiones.map(tarjetaDimension).join('')}</div>
+    </section>
+
+    <section>
+      <div class="dos-col">
+        <div>
+          <h2 class="titulo-seccion">Para qué usan Nova</h2>
+          <p class="sub-seccion">Cada persona pudo marcar varias tareas.</p>
+          <div class="tarjeta">${barras(m.casosUso, { total: m.total })}</div>
+        </div>
+        <div>
+          <h2 class="titulo-seccion">Tiempo que dicen ahorrar</h2>
+          <p class="sub-seccion">Estimado propio de cada participante, por semana.</p>
+          <div class="tarjeta">${barras(m.tiempos, { total: m.total })}</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="dos-col">
+        <div>
+          <h2 class="titulo-seccion">Confianza en las respuestas</h2>
+          <p class="sub-seccion">Qué tanto usarían el resultado en su trabajo real.</p>
+          <div class="tarjeta">${barras(m.confianzas, { total: m.total })}</div>
+        </div>
+        <div>
+          <h2 class="titulo-seccion">Frecuencia de uso</h2>
+          <p class="sub-seccion">Cuánto la usaron durante el período de pruebas.</p>
+          <div class="tarjeta">${barras(m.frecuencias, { total: m.total })}</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="titulo-seccion">Áreas que participaron</h2>
+      <p class="sub-seccion">Dónde se concentró la prueba y dónde falta cobertura.</p>
+      <div class="tarjeta">${barras(m.areas, { total: m.total })}</div>
+    </section>
+
+    <section>
+      <h2 class="titulo-seccion">Lo que escribieron</h2>
+      <p class="sub-seccion">Toca una respuesta para leerla completa. Aquí está el material más útil para decidir qué se arregla primero.</p>
+      <div class="filtros">
+        <input type="search" id="buscar" placeholder="Buscar en nombres, áreas y comentarios…" aria-label="Buscar respuestas">
+        <select id="orden" aria-label="Ordenar respuestas">
+          <option value="reciente">Más recientes primero</option>
+          <option value="antigua">Más antiguas primero</option>
+          <option value="peor">Peor calificación primero</option>
+          <option value="mejor">Mejor calificación primero</option>
+        </select>
+        <span class="conteo" id="conteo"></span>
+      </div>
+      <div id="lista"></div>
+    </section>`;
+
+  $('#buscar').addEventListener('input', pintarLista);
+  $('#orden').addEventListener('change', pintarLista);
+  pintarLista();
+}
+
+/* ------------------------------------------------------------------ */
+/* Lista de respuestas abiertas                                        */
+/* ------------------------------------------------------------------ */
+function pintarLista() {
+  const q = ($('#buscar')?.value || '').trim().toLowerCase();
+  const orden = $('#orden')?.value || 'reciente';
+
+  let filas = [...datos.respuestas];
+
+  if (q) {
+    filas = filas.filter((f) => [
+      f.nombre, f.correo, f.area, f.lo_mejor, f.problemas, f.mejoras, f.futuro, f.comentario,
+      ...(Array.isArray(f.casos_uso) ? f.casos_uso : []),
+    ].join(' ').toLowerCase().includes(q));
+  }
+
+  const orden_fn = {
+    reciente: (a, b) => new Date(b.creado_en) - new Date(a.creado_en),
+    antigua: (a, b) => new Date(a.creado_en) - new Date(b.creado_en),
+    peor: (a, b) => (a.satisfaccion ?? 9) - (b.satisfaccion ?? 9),
+    mejor: (a, b) => (b.satisfaccion ?? -1) - (a.satisfaccion ?? -1),
+  }[orden];
+  filas.sort(orden_fn);
+
+  $('#conteo').textContent = `${fmt(filas.length)} de ${fmt(datos.respuestas.length)}`;
+
+  if (!filas.length) {
+    $('#lista').innerHTML = '<div class="vacio-total"><div class="icono">🔍</div><h3>Nada coincide</h3><p>Prueba con otras palabras.</p></div>';
+    return;
+  }
+
+  $('#lista').innerHTML = filas.map(tarjetaRespuesta).join('');
+
+  $$('.respuesta .cabeza').forEach((c) => {
+    c.addEventListener('click', () => c.parentElement.classList.toggle('abierta'));
+    c.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); c.parentElement.classList.toggle('abierta'); }
+    });
+  });
+}
+
+function tarjetaRespuesta(f) {
+  const clase = f.nps >= 9 ? 'nps-pro' : f.nps >= 7 ? 'nps-pas' : 'nps-det';
+  const bloque = (pregunta, respuesta) =>
+    `<div class="bloque"><div class="q">${esc(pregunta)}</div>
+      <div class="a${respuesta ? '' : ' vacio'}">${respuesta ? esc(respuesta) : 'Sin respuesta'}</div></div>`;
+
+  const casos = Array.isArray(f.casos_uso) ? f.casos_uso : [];
+
+  return `<article class="respuesta">
+    <div class="cabeza" tabindex="0" role="button" aria-expanded="false">
+      <div class="avatar">${esc(iniciales(f.nombre))}</div>
+      <div class="quien">
+        <div class="n">${esc(f.nombre)}</div>
+        <div class="m">${esc(f.correo)} · ${esc(f.area || 'Sin área')}</div>
+      </div>
+      <div class="insignias">
+        <span class="insignia">★ ${f.satisfaccion ?? '—'}/5</span>
+        <span class="insignia ${clase}">NPS ${f.nps ?? '—'}</span>
+        ${f.contactable ? '<span class="insignia">✉ Contactable</span>' : ''}
+      </div>
+      <span class="flecha" aria-hidden="true">▶</span>
+    </div>
+
+    <div class="detalle">
+      <div class="notas-esc">
+        <span class="esc-mini">Experiencia <b>${f.satisfaccion ?? '—'}</b>/5</span>
+        <span class="esc-mini">Calidad <b>${f.calidad ?? '—'}</b>/5</span>
+        <span class="esc-mini">Velocidad <b>${f.velocidad ?? '—'}</b>/5</span>
+        <span class="esc-mini">Facilidad <b>${f.facilidad ?? '—'}</b>/5</span>
+        <span class="esc-mini">Recomendación <b>${f.nps ?? '—'}</b>/10</span>
+      </div>
+      <div style="height:14px"></div>
+      ${bloque('Lo que más le gustó', f.lo_mejor)}
+      ${bloque('Lo que le falló o le frustró', f.problemas)}
+      ${bloque('Lo primero que arreglaría', f.mejoras)}
+      ${bloque('Lo que quisiera ver a futuro', f.futuro)}
+      ${f.comentario ? bloque('Comentario adicional', f.comentario) : ''}
+      <div class="meta-linea">
+        <span class="meta">${esc(f.frecuencia_uso || '—')}</span>
+        <span class="meta">Ahorro: ${esc(f.tiempo_ahorrado || '—')}</span>
+        <span class="meta">Confianza: ${esc(f.confianza || '—')}</span>
+        ${casos.map((c) => `<span class="meta">${esc(c)}</span>`).join('')}
+        <span class="meta">${esc(fecha(f.creado_en))}</span>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* ------------------------------------------------------------------ */
+/* Exportar CSV                                                        */
+/* ------------------------------------------------------------------ */
+$('#btn-csv').addEventListener('click', async () => {
+  const btn = $('#btn-csv');
+  btn.disabled = true;
+  const original = btn.textContent;
+  btn.textContent = 'Preparando…';
+
+  try {
+    const r = await fetch('/api/respuestas?formato=csv', { headers: { Authorization: 'Bearer ' + token } });
+    if (r.status === 401) return cerrarSesion('Tu sesión expiró. Vuelve a ingresar.');
+    if (!r.ok) throw new Error('fallo');
+
+    const blob = await r.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `feedback-nova-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  } catch {
+    const av = $('#aviso-sesion');
+    av.textContent = 'No pudimos generar el archivo. Intenta de nuevo.';
+    av.classList.add('visible');
+    setTimeout(() => av.classList.remove('visible'), 4000);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = original;
+  }
+});
+
+/* Sesión previa en esta pestaña: entra directo. */
+if (token) abrirPanel();
+</script>
+</body>
+</html>

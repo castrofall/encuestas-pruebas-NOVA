@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Cuéntanos cómo te fue con Nova · Ternova</title>
+<style>
+  :root{
+    --indigo:#1D0447; --indigo-hondo:#13002E; --indigo-medio:#3A1380;
+    --lavanda:#9A83D6; --lavanda-suave:#E8E1F5;
+    --naranja:#FF6A00; --papel:#F6F3EE; --tinta:#0E0320;
+
+    --linea:#DDD5E8;
+    --texto:#2A1B45; --texto-suave:#6B5E85;
+    --exito:#1B7F5A; --error:#B3261E; --error-suave:#FDEDEC;
+
+    --r:14px; --r-chico:10px;
+    --sombra:0 1px 2px rgba(19,0,46,.06), 0 8px 28px rgba(19,0,46,.10);
+    --fuente:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:var(--fuente); color:var(--texto); background:var(--indigo-hondo);
+    background-image:
+      radial-gradient(1100px 620px at 12% -8%, rgba(58,19,128,.85), transparent 60%),
+      radial-gradient(900px 520px at 95% 8%, rgba(154,131,214,.30), transparent 62%),
+      radial-gradient(700px 420px at 50% 108%, rgba(255,106,0,.16), transparent 65%);
+    background-attachment:fixed;
+    min-height:100vh; -webkit-font-smoothing:antialiased;
+  }
+
+  .envoltura{max-width:760px;margin:0 auto;padding:28px 18px 72px}
+
+  /* ---------- Encabezado ---------- */
+  header{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+  header img{height:30px;width:auto;display:block}
+  header .sep{width:1px;height:24px;background:rgba(232,225,245,.28)}
+  header .rotulo{
+    color:var(--lavanda-suave);font-size:12.5px;font-weight:600;
+    letter-spacing:.11em;text-transform:uppercase;
+  }
+
+  /* ---------- Portada ---------- */
+  .portada{color:#fff;margin-bottom:22px}
+  .portada h1{
+    margin:0 0 12px; font-size:clamp(27px,5.2vw,40px); line-height:1.14;
+    font-weight:700; letter-spacing:-.02em;
+  }
+  .portada h1 em{font-style:normal;color:var(--naranja)}
+  .portada p{
+    margin:0; font-size:16px; line-height:1.6;
+    color:rgba(232,225,245,.86); max-width:60ch;
+  }
+  .datos-rapidos{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .dato{
+    display:inline-flex;align-items:center;gap:7px;
+    background:rgba(255,255,255,.09); border:1px solid rgba(232,225,245,.20);
+    color:var(--lavanda-suave); border-radius:999px;
+    padding:6px 13px; font-size:12.5px; font-weight:500;
+  }
+
+  /* ---------- Progreso ---------- */
+  .progreso{margin:0 0 -1px;background:var(--papel);border-radius:var(--r) var(--r) 0 0;padding:18px 22px 0}
+  .pasos{display:flex;gap:6px;list-style:none;margin:0 0 14px;padding:0}
+  .pasos li{flex:1;min-width:0}
+  .pasos .barra{height:4px;border-radius:99px;background:var(--linea);transition:background .3s}
+  .pasos li.hecho .barra,.pasos li.activo .barra{background:var(--naranja)}
+  .pasos .nombre{
+    display:block;margin-top:8px;font-size:11.5px;font-weight:600;
+    color:var(--texto-suave);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .pasos li.activo .nombre{color:var(--indigo-medio)}
+  @media (max-width:560px){ .pasos .nombre{display:none} }
+
+  /* ---------- Tarjeta ---------- */
+  .tarjeta{
+    background:var(--papel); border-radius:0 0 var(--r) var(--r);
+    padding:8px 22px 24px; box-shadow:var(--sombra);
+  }
+  .paso[hidden]{display:none}
+  .paso h2{
+    margin:14px 0 4px;font-size:20px;font-weight:700;
+    letter-spacing:-.01em;color:var(--indigo);
+  }
+  .paso .guia{margin:0 0 22px;font-size:14px;color:var(--texto-suave);line-height:1.55}
+
+  /* ---------- Campos ---------- */
+  .campo{margin-bottom:20px}
+  .campo > label,.leyenda{
+    display:block;font-size:14.5px;font-weight:600;color:var(--texto);margin-bottom:3px;
+  }
+  .pista{display:block;font-size:13px;color:var(--texto-suave);margin-bottom:9px;line-height:1.5}
+  .opcional{font-weight:500;color:var(--texto-suave);font-size:12.5px}
+
+  input[type=text],input[type=email],select,textarea{
+    width:100%;padding:11px 13px;font-family:inherit;font-size:15px;color:var(--texto);
+    background:#fff;border:1.5px solid var(--linea);border-radius:var(--r-chico);
+    transition:border-color .15s, box-shadow .15s;
+  }
+  textarea{resize:vertical;min-height:92px;line-height:1.55}
+  select{appearance:none;cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236B5E85' d='M1.4 0 6 4.6 10.6 0 12 1.4 6 7.4 0 1.4z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 13px center;padding-right:36px}
+  input:focus,select:focus,textarea:focus{
+    outline:none;border-color:var(--indigo-medio);box-shadow:0 0 0 3px rgba(58,19,128,.14);
+  }
+  fieldset{border:0;margin:0 0 20px;padding:0}
+
+  /* ---------- Escala 1 a 5 ---------- */
+  .escala{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+  .escala input{position:absolute;opacity:0;width:0;height:0}
+  .escala label{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+    padding:11px 4px;background:#fff;border:1.5px solid var(--linea);
+    border-radius:var(--r-chico);cursor:pointer;text-align:center;
+    transition:all .15s;
+  }
+  .escala .cara{font-size:21px;line-height:1;filter:grayscale(1) opacity(.55);transition:filter .15s}
+  .escala .txt{font-size:11px;font-weight:600;color:var(--texto-suave);line-height:1.25}
+  .escala label:hover{border-color:var(--lavanda)}
+  .escala input:checked + label{
+    background:var(--indigo);border-color:var(--indigo);
+    box-shadow:0 3px 10px rgba(29,4,71,.24);
+  }
+  .escala input:checked + label .cara{filter:none}
+  .escala input:checked + label .txt{color:#fff}
+  .escala input:focus-visible + label{box-shadow:0 0 0 3px rgba(58,19,128,.30)}
+  @media (max-width:430px){ .escala .txt{display:none} .escala label{padding:13px 4px} }
+
+  /* ---------- NPS 0 a 10 ---------- */
+  .nps{display:grid;grid-template-columns:repeat(11,1fr);gap:4px}
+  .nps input{position:absolute;opacity:0;width:0;height:0}
+  .nps label{
+    display:flex;align-items:center;justify-content:center;
+    aspect-ratio:1;background:#fff;border:1.5px solid var(--linea);
+    border-radius:8px;cursor:pointer;font-size:13.5px;font-weight:600;
+    color:var(--texto);transition:all .15s;
+  }
+  .nps label:hover{border-color:var(--lavanda)}
+  .nps input:checked + label{color:#fff;transform:translateY(-2px)}
+  .nps input:checked + label.det{background:#B3261E;border-color:#B3261E}
+  .nps input:checked + label.pas{background:#8A6D1F;border-color:#8A6D1F}
+  .nps input:checked + label.pro{background:#1B7F5A;border-color:#1B7F5A}
+  .nps input:focus-visible + label{box-shadow:0 0 0 3px rgba(58,19,128,.30)}
+  .nps-pies{display:flex;justify-content:space-between;margin-top:7px;font-size:12px;color:var(--texto-suave)}
+  @media (max-width:430px){ .nps label{font-size:12px;border-radius:6px} .nps{gap:3px} }
+
+  /* ---------- Casillas y radios en lista ---------- */
+  .lista{display:grid;gap:7px}
+  .lista.dos{grid-template-columns:1fr 1fr}
+  @media (max-width:560px){ .lista.dos{grid-template-columns:1fr} }
+  .item{
+    display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:#fff;
+    border:1.5px solid var(--linea);border-radius:var(--r-chico);cursor:pointer;
+    font-size:14px;line-height:1.4;transition:all .15s;
+  }
+  .item:hover{border-color:var(--lavanda)}
+  .item input{
+    accent-color:var(--indigo-medio);width:17px;height:17px;margin:1px 0 0;flex:0 0 auto;cursor:pointer;
+  }
+  .item:has(input:checked){
+    border-color:var(--indigo-medio);background:var(--lavanda-suave);font-weight:500;
+  }
+  .item:has(input:focus-visible){box-shadow:0 0 0 3px rgba(58,19,128,.20)}
+
+  /* ---------- Contador y errores ---------- */
+  .contador{display:block;text-align:right;font-size:11.5px;color:var(--texto-suave);margin-top:5px}
+  .msg-error{
+    display:none;align-items:center;gap:6px;margin-top:7px;
+    font-size:13px;font-weight:500;color:var(--error);
+  }
+  .campo.mal .msg-error,fieldset.mal .msg-error{display:flex}
+  .campo.mal input,.campo.mal select,.campo.mal textarea{
+    border-color:var(--error);background:var(--error-suave);
+  }
+  .campo.mal > label,fieldset.mal .leyenda{color:var(--error)}
+
+  /* ---------- Navegación ---------- */
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin-top:26px;padding-top:20px;border-top:1px solid var(--linea);
+  }
+  .btn{
+    font-family:inherit;font-size:15px;font-weight:600;border-radius:var(--r-chico);
+    padding:12px 24px;cursor:pointer;border:1.5px solid transparent;transition:all .15s;
+  }
+  .btn:focus-visible{outline:3px solid rgba(58,19,128,.35);outline-offset:2px}
+  .btn-primario{background:var(--naranja);color:#fff;box-shadow:0 3px 12px rgba(255,106,0,.30)}
+  .btn-primario:hover:not(:disabled){background:#E85F00;transform:translateY(-1px)}
+  .btn-primario:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+  .btn-fantasma{background:transparent;color:var(--texto-suave);border-color:var(--linea)}
+  .btn-fantasma:hover{border-color:var(--lavanda);color:var(--indigo-medio)}
+  .btn-fantasma[hidden]{display:none}
+  .cuenta{font-size:12.5px;color:var(--texto-suave)}
+
+  /* ---------- Aviso global ---------- */
+  .aviso{
+    display:none;gap:10px;align-items:flex-start;margin-bottom:18px;padding:13px 15px;
+    border-radius:var(--r-chico);font-size:14px;line-height:1.5;
+    background:var(--error-suave);border:1.5px solid rgba(179,38,30,.35);color:#8C1D18;
+  }
+  .aviso.visible{display:flex}
+
+  /* ---------- Cierre ---------- */
+  .cierre{display:none;text-align:center;padding:44px 20px 34px}
+  .cierre.visible{display:block}
+  .cierre .marca{
+    width:66px;height:66px;margin:0 auto 20px;border-radius:50%;
+    background:var(--exito);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 22px rgba(27,127,90,.30);
+  }
+  .cierre .marca svg{width:32px;height:32px;stroke:#fff;stroke-width:3;fill:none;
+    stroke-linecap:round;stroke-linejoin:round}
+  .cierre h2{margin:0 0 10px;font-size:24px;color:var(--indigo)}
+  .cierre p{margin:0 auto 8px;max-width:46ch;font-size:15px;line-height:1.6;color:var(--texto-suave)}
+  .folio{
+    display:inline-block;margin-top:14px;padding:7px 15px;border-radius:999px;
+    background:var(--lavanda-suave);color:var(--indigo-medio);
+    font-size:13px;font-weight:600;letter-spacing:.02em;
+  }
+
+  /* ---------- Pie ---------- */
+  footer{
+    margin-top:22px;text-align:center;font-size:12.5px;line-height:1.65;
+    color:rgba(232,225,245,.62);
+  }
+  footer strong{color:rgba(232,225,245,.82);font-weight:600}
+
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
+</style>
+</head>
+<body>
+<div class="envoltura">
+
+  <header>
+    <img src="/assets/ternova-isotipo.png" alt="">
+    <div class="sep"></div>
+    <span class="rotulo">Pruebas de Nova</span>
+  </header>
+
+  <div class="portada">
+    <h1>¿Cómo te fue <em>con Nova</em>?</h1>
+    <p>Tu experiencia decide qué se arregla primero y qué se construye después. Son cuatro pasos cortos y cuenta lo que de verdad viviste: lo bueno y lo que te hizo perder tiempo.</p>
+    <div class="datos-rapidos">
+      <span class="dato">⏱️ Toma 3 minutos</span>
+      <span class="dato">💾 Se guarda solo mientras respondes</span>
+      <span class="dato">👀 Lo lee el equipo de TI</span>
+    </div>
+  </div>
+
+  <div class="progreso">
+    <ol class="pasos" id="pasos">
+      <li data-paso="1"><div class="barra"></div><span class="nombre">Tú</span></li>
+      <li data-paso="2"><div class="barra"></div><span class="nombre">Tu experiencia</span></li>
+      <li data-paso="3"><div class="barra"></div><span class="nombre">Cómo la usaste</span></li>
+      <li data-paso="4"><div class="barra"></div><span class="nombre">Qué mejorar</span></li>
+    </ol>
+  </div>
+
+  <div class="tarjeta">
+    <div class="aviso" id="aviso" role="alert" aria-live="assertive">
+      <span aria-hidden="true">⚠️</span><span id="aviso-txt"></span>
+    </div>
+
+    <form id="form" novalidate>
+
+      <!-- ============ PASO 1 ============ -->
+      <section class="paso" data-paso="1">
+        <h2>Primero, ¿quién eres?</h2>
+        <p class="guia">Necesitamos saber quién respondió para poder darle seguimiento a tus comentarios. No se comparte fuera del equipo de TI.</p>
+
+        <div class="campo" id="c-nombre">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" autocomplete="name" maxlength="80" placeholder="Ej. Ana María Rodríguez">
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </div>
+
+        <div class="campo" id="c-correo">
+          <label for="correo">Correo institucional</label>
+          <span class="pista">Debe terminar en <strong>@ternova.group</strong>.</span>
+          <input type="email" id="correo" name="correo" autocomplete="email" maxlength="120" placeholder="tunombre@ternova.group">
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </div>
+
+        <div class="campo" id="c-area">
+          <label for="area">¿En qué área trabajas?</label>
+          <select id="area" name="area"><option value="">Selecciona tu área…</option></select>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </div>
+
+        <fieldset id="c-frecuencia_uso">
+          <legend class="leyenda">¿Con qué frecuencia usaste Nova durante las pruebas?</legend>
+          <span class="pista">Sé honesto: si apenas la probaste, esa también es información valiosa.</span>
+          <div class="lista dos" data-radios="frecuencia_uso"></div>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </fieldset>
+      </section>
+
+      <!-- ============ PASO 2 ============ -->
+      <section class="paso" data-paso="2" hidden>
+        <h2>¿Qué tal estuvo la experiencia?</h2>
+        <p class="guia">Califica cada aspecto por separado. Puede que algo te haya encantado y otra cosa te haya frustrado: eso es justo lo que queremos ver.</p>
+
+        <fieldset id="c-satisfaccion">
+          <legend class="leyenda">Tu experiencia general con Nova</legend>
+          <div class="escala" data-escala="satisfaccion"
+               data-etiquetas="Muy mala|Mala|Regular|Buena|Excelente"
+               data-caras="😞|😕|😐|🙂|😄"></div>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </fieldset>
+
+        <fieldset id="c-calidad">
+          <legend class="leyenda">Calidad de las respuestas</legend>
+          <span class="pista">¿Fueron correctas, completas y útiles para lo que necesitabas?</span>
+          <div class="escala" data-escala="calidad"
+               data-etiquetas="Muy pobre|Pobre|Aceptable|Buena|Muy buena"
+               data-caras="😞|😕|😐|🙂|😄"></div>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </fieldset>
+
+        <fieldset id="c-velocidad">
+          <legend class="leyenda">Velocidad de respuesta</legend>
+          <div class="escala" data-escala="velocidad"
+               data-etiquetas="Muy lenta|Lenta|Aceptable|Rápida|Muy rápida"
+               data-caras="🐢|😕|😐|🙂|⚡"></div>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </fieldset>
+
+        <fieldset id="c-facilidad">
+          <legend class="leyenda">Qué tan fácil fue usarla</legend>
+          <span class="pista">¿Entendiste qué hacer sin que nadie te explicara?</span>
+          <div class="escala" data-escala="facilidad"
+               data-etiquetas="Muy difícil|Difícil|Normal|Fácil|Muy fácil"
+               data-caras="😵|😕|😐|🙂|😄"></div>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </fieldset>
+
+        <fieldset id="c-nps">
+          <legend class="leyenda">¿Qué tan probable es que le recomiendes Nova a un compañero?</legend>
+          <span class="pista">0 es nada probable, 10 es totalmente seguro.</span>
+          <div class="nps" data-nps="nps"></div>
+          <div class="nps-pies"><span>0 · Nada probable</span><span>10 · Segurísimo</span></div>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </fieldset>
+      </section>
+
+      <!-- ============ PASO 3 ============ -->
+      <section class="paso" data-paso="3" hidden>
+        <h2>¿Para qué la usaste?</h2>
+        <p class="guia">Saber en qué tareas ayuda de verdad nos dice hacia dónde llevarla.</p>
+
+        <fieldset id="c-casos_uso">
+          <legend class="leyenda">Marca todo lo que aplique</legend>
+          <span class="pista">Elige al menos una opción.</span>
+          <div class="lista dos" data-checks="casos_uso"></div>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </fieldset>
+
+        <fieldset id="c-tiempo_ahorrado">
+          <legend class="leyenda">¿Cuánto tiempo calculas que te ahorró por semana?</legend>
+          <span class="pista">Un estimado a ojo está perfecto.</span>
+          <div class="lista" data-radios="tiempo_ahorrado"></div>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </fieldset>
+
+        <fieldset id="c-confianza">
+          <legend class="leyenda">¿Confiarías en sus respuestas para tu trabajo real?</legend>
+          <div class="lista" data-radios="confianza"></div>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </fieldset>
+      </section>
+
+      <!-- ============ PASO 4 ============ -->
+      <section class="paso" data-paso="4" hidden>
+        <h2>Ahora sí, cuéntanos</h2>
+        <p class="guia">Esta parte es la que más se lee. Un ejemplo concreto vale más que un “estuvo bien”.</p>
+
+        <div class="campo" id="c-lo_mejor">
+          <label for="lo_mejor">¿Qué fue lo que más te gustó o te sirvió?</label>
+          <span class="pista">Lo que no querrías perder si mañana cambiara.</span>
+          <textarea id="lo_mejor" name="lo_mejor" maxlength="2000"
+            placeholder="Ej. Que me resumió un informe de 30 páginas en un párrafo útil y no tuve que leerlo completo."></textarea>
+          <span class="contador" data-cuenta="lo_mejor"></span>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </div>
+
+        <div class="campo" id="c-problemas">
+          <label for="problemas">¿Qué te falló o te frustró? <span class="opcional">(opcional)</span></label>
+          <span class="pista">Si recuerdas un caso específico, cuéntalo: es lo más fácil de arreglar.</span>
+          <textarea id="problemas" name="problemas" maxlength="2000"
+            placeholder="Ej. Le pedí datos de un CECO y me inventó un número que no existe."></textarea>
+          <span class="contador" data-cuenta="problemas"></span>
+        </div>
+
+        <div class="campo" id="c-mejoras">
+          <label for="mejoras">Si pudieras arreglar una sola cosa, ¿cuál sería?</label>
+          <span class="pista">La prioridad número uno desde tu puesto.</span>
+          <textarea id="mejoras" name="mejoras" maxlength="2000"
+            placeholder="Ej. Que no pierda el hilo de la conversación cuando cambio de tema y regreso."></textarea>
+          <span class="contador" data-cuenta="mejoras"></span>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
+        </div>
+
+        <div class="campo" id="c-futuro">
+          <label for="futuro">¿Qué te gustaría que Nova pudiera hacer más adelante? <span class="opcional">(opcional)</span></label>
+          <span class="pista">Sueña sin límite: conexiones con otros sistemas, tareas que hoy haces a mano, lo que sea.</span>
+          <textarea id="futuro" name="futuro" maxlength="2000"
+            placeholder="Ej. Que se conecte a ClickUp y me arme el reporte semanal sin que yo lo pida."></textarea>
+          <span class="contador" data-cuenta="futuro"></span>
+        </div>
+
+        <div class="campo" id="c-comentario">
+          <label for="comentario">¿Algo más que quieras decirnos? <span class="opcional">(opcional)</span></label>
+          <textarea id="comentario" name="comentario" maxlength="2000" style="min-height:70px"
+            placeholder="Todo lo que no cupo arriba."></textarea>
+          <span class="contador" data-cuenta="comentario"></span>
+        </div>
+
+        <fieldset style="margin-bottom:6px">
+          <label class="item" style="align-items:center">
+            <input type="checkbox" id="contactable" name="contactable">
+            <span>Pueden escribirme si quieren profundizar en algo de lo que respondí.</span>
+          </label>
+        </fieldset>
+      </section>
+
+      <div class="nav">
+        <button type="button" class="btn btn-fantasma" id="btn-atras" hidden>← Atrás</button>
+        <span class="cuenta" id="cuenta">Paso 1 de 4</span>
+        <button type="button" class="btn btn-primario" id="btn-siguiente">Continuar →</button>
+      </div>
+    </form>
+
+    <div class="cierre" id="cierre">
+      <div class="marca"><svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="4 12.5 9.5 18 20 6.5"/></svg></div>
+      <h2>¡Gracias, <span id="cierre-nombre">colega</span>!</h2>
+      <p>Tu respuesta ya quedó registrada. El equipo de TI la revisa junto con las de tus compañeros para decidir qué se mejora primero en Nova.</p>
+      <p>Si marcaste que podemos escribirte, es posible que te busquemos para conocer más detalles.</p>
+      <div class="folio" id="folio"></div>
+    </div>
+  </div>
+
+  <footer>
+    <strong>Grupo Ternova · Tecnología de la Información</strong><br>
+    Uso interno. Tus respuestas se usan únicamente para mejorar Nova.
+  </footer>
+</div>
+
+<script type="module">
+'use strict';
+
+/* ------------------------------------------------------------------ */
+/* Catálogos: deben coincidir exactamente con lib/validacion.js        */
+/* ------------------------------------------------------------------ */
+const AREAS = ['Tecnología de la Información','Operaciones / Producción','Cadena de Suministro / Logística',
+  'Comercial / Ventas','Mercadeo','Finanzas / Contabilidad','Talento Humano','Calidad','Mantenimiento',
+  'Dirección / Gerencia','Otra'];
+
+const FRECUENCIAS = ['Todos los días','Varias veces por semana','Una vez por semana','Solo la probé un par de veces'];
+
+const CASOS_USO = ['Redactar o mejorar textos y correos','Resumir documentos o reuniones',
+  'Analizar datos o generar reportes','Traducir contenido','Programar o revisar código',
+  'Buscar información interna','Generar ideas o lluvia de ideas','Automatizar tareas repetitivas',
+  'Atender consultas de usuarios','Otro'];
+
+const TIEMPOS = ['Nada, me tomó el mismo tiempo','Menos de 1 hora por semana','Entre 1 y 3 horas por semana',
+  'Entre 3 y 5 horas por semana','Más de 5 horas por semana'];
+
+const CONFIANZAS = ['Sí, usaría su respuesta tal cual','Sí, pero siempre la reviso antes',
+  'Solo para tareas de bajo riesgo','Todavía no confío en sus respuestas'];
+
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+/* ------------------------------------------------------------------ */
+/* Construcción de los controles                                       */
+/* ------------------------------------------------------------------ */
+const idSeguro = (t) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+$('#area').append(...AREAS.map((a) => new Option(a, a)));
+
+function pintarRadios(campo, opciones) {
+  const cont = $(`[data-radios="${campo}"]`);
+  if (!cont) return;
+  cont.innerHTML = opciones.map((o) => `
+    <label class="item">
+      <input type="radio" name="${campo}" value="${o.replace(/"/g, '&quot;')}" id="${campo}-${idSeguro(o)}">
+      <span>${o}</span>
+    </label>`).join('');
+}
+
+function pintarChecks(campo, opciones) {
+  const cont = $(`[data-checks="${campo}"]`);
+  if (!cont) return;
+  cont.innerHTML = opciones.map((o) => `
+    <label class="item">
+      <input type="checkbox" name="${campo}" value="${o.replace(/"/g, '&quot;')}" id="${campo}-${idSeguro(o)}">
+      <span>${o}</span>
+    </label>`).join('');
+}
+
+function pintarEscala(cont) {
+  const campo = cont.dataset.escala;
+  const etiquetas = cont.dataset.etiquetas.split('|');
+  const caras = cont.dataset.caras.split('|');
+  cont.innerHTML = etiquetas.map((txt, i) => {
+    const v = i + 1;
+    return `<input type="radio" name="${campo}" value="${v}" id="${campo}-${v}">
+      <label for="${campo}-${v}" title="${v} · ${txt}">
+        <span class="cara" aria-hidden="true">${caras[i]}</span>
+        <span class="txt">${txt}</span>
+      </label>`;
+  }).join('');
+}
+
+function pintarNps(cont) {
+  const campo = cont.dataset.nps;
+  cont.innerHTML = Array.from({ length: 11 }, (_, n) => {
+    const clase = n <= 6 ? 'det' : n <= 8 ? 'pas' : 'pro';
+    return `<input type="radio" name="${campo}" value="${n}" id="${campo}-${n}">
+      <label for="${campo}-${n}" class="${clase}">${n}</label>`;
+  }).join('');
+}
+
+pintarRadios('frecuencia_uso', FRECUENCIAS);
+pintarRadios('tiempo_ahorrado', TIEMPOS);
+pintarRadios('confianza', CONFIANZAS);
+pintarChecks('casos_uso', CASOS_USO);
+$$('[data-escala]').forEach(pintarEscala);
+$$('[data-nps]').forEach(pintarNps);
+
+/* ------------------------------------------------------------------ */
+/* Contadores de caracteres                                            */
+/* ------------------------------------------------------------------ */
+$$('[data-cuenta]').forEach((span) => {
+  const ta = document.getElementById(span.dataset.cuenta);
+  const actualizar = () => { span.textContent = `${ta.value.length} / ${ta.maxLength}`; };
+  ta.addEventListener('input', actualizar);
+  actualizar();
+});
+
+/* ------------------------------------------------------------------ */
+/* Borrador en el navegador (para no perder lo escrito)                */
+/* ------------------------------------------------------------------ */
+const CLAVE = 'feedback-nova-borrador';
+
+function recolectar() {
+  const d = {};
+  for (const c of ['nombre','correo','area','lo_mejor','problemas','mejoras','futuro','comentario']) {
+    d[c] = ($('#' + c)?.value || '').trim();
+  }
+  for (const c of ['frecuencia_uso','tiempo_ahorrado','confianza']) {
+    d[c] = $(`input[name="${c}"]:checked`)?.value || '';
+  }
+  for (const c of ['satisfaccion','calidad','velocidad','facilidad','nps']) {
+    const v = $(`input[name="${c}"]:checked`)?.value;
+    d[c] = v === undefined ? null : Number(v);
+  }
+  d.casos_uso = $$('input[name="casos_uso"]:checked').map((i) => i.value);
+  d.contactable = $('#contactable').checked;
+  return d;
+}
+
+function guardarBorrador() {
+  try { localStorage.setItem(CLAVE, JSON.stringify(recolectar())); } catch { /* modo privado */ }
+}
+
+function restaurarBorrador() {
+  let d;
+  try { d = JSON.parse(localStorage.getItem(CLAVE) || 'null'); } catch { return; }
+  if (!d) return;
+  for (const [k, v] of Object.entries(d)) {
+    if (v === null || v === '' || (Array.isArray(v) && !v.length)) continue;
+    if (k === 'casos_uso') {
+      v.forEach((val) => { const i = $$(`input[name="casos_uso"]`).find((x) => x.value === val); if (i) i.checked = true; });
+    } else if (k === 'contactable') {
+      $('#contactable').checked = Boolean(v);
+    } else {
+      const campo = $('#' + k);
+      if (campo && (campo.tagName === 'INPUT' || campo.tagName === 'TEXTAREA' || campo.tagName === 'SELECT')) {
+        campo.value = v;
+      } else {
+        const r = $$(`input[name="${k}"]`).find((x) => x.value === String(v));
+        if (r) r.checked = true;
+      }
+    }
+  }
+  $$('[data-cuenta]').forEach((s) => {
+    const ta = document.getElementById(s.dataset.cuenta);
+    s.textContent = `${ta.value.length} / ${ta.maxLength}`;
+  });
+}
+
+restaurarBorrador();
+$('#form').addEventListener('input', guardarBorrador);
+$('#form').addEventListener('change', guardarBorrador);
+
+/* ------------------------------------------------------------------ */
+/* Validación en el navegador (el servidor vuelve a validar todo)      */
+/* ------------------------------------------------------------------ */
+const RE_CORREO = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+const RE_NOMBRE = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ' .-]+$/;
+const DOMINIO = 'ternova.group';
+
+const REGLAS = {
+  1: {
+    nombre: (d) => d.nombre.length < 3 ? 'Escribe tu nombre completo.'
+             : !RE_NOMBRE.test(d.nombre) ? 'El nombre solo puede llevar letras, espacios, apóstrofes y guiones.' : null,
+    correo: (d) => !d.correo ? 'Escribe tu correo institucional.'
+             : !RE_CORREO.test(d.correo) ? 'Ese correo no tiene un formato válido.'
+             : !d.correo.toLowerCase().endsWith('@' + DOMINIO) ? `El correo debe terminar en @${DOMINIO}.` : null,
+    area: (d) => !d.area ? 'Selecciona tu área.' : null,
+    frecuencia_uso: (d) => !d.frecuencia_uso ? 'Elige una opción.' : null,
+  },
+  2: {
+    satisfaccion: (d) => d.satisfaccion === null ? 'Califica tu experiencia general.' : null,
+    calidad: (d) => d.calidad === null ? 'Califica la calidad de las respuestas.' : null,
+    velocidad: (d) => d.velocidad === null ? 'Califica la velocidad.' : null,
+    facilidad: (d) => d.facilidad === null ? 'Califica qué tan fácil fue usarla.' : null,
+    nps: (d) => d.nps === null ? 'Elige un número del 0 al 10.' : null,
+  },
+  3: {
+    casos_uso: (d) => !d.casos_uso.length ? 'Marca al menos una opción.' : null,
+    tiempo_ahorrado: (d) => !d.tiempo_ahorrado ? 'Elige una opción.' : null,
+    confianza: (d) => !d.confianza ? 'Elige una opción.' : null,
+  },
+  4: {
+    lo_mejor: (d) => d.lo_mejor.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
+    mejoras: (d) => d.mejoras.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
+  },
+};
+
+function marcarError(campo, mensaje) {
+  const cont = $('#c-' + campo);
+  if (!cont) return;
+  cont.classList.toggle('mal', Boolean(mensaje));
+  const t = $('.msg-error .t', cont);
+  if (t) t.textContent = mensaje || '';
+}
+
+function limpiarErrores(paso) {
+  Object.keys(REGLAS[paso] || {}).forEach((c) => marcarError(c, null));
+}
+
+function validarPaso(paso) {
+  const d = recolectar();
+  const reglas = REGLAS[paso] || {};
+  let primero = null;
+  for (const [campo, regla] of Object.entries(reglas)) {
+    const msg = regla(d);
+    marcarError(campo, msg);
+    if (msg && !primero) primero = campo;
+  }
+  if (primero) {
+    const cont = $('#c-' + primero);
+    cont.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const foco = cont.querySelector('input:not([type=hidden]), select, textarea');
+    setTimeout(() => foco?.focus({ preventScroll: true }), 320);
+  }
+  return !primero;
+}
+
+// Al corregir un campo, el error desaparece de inmediato.
+$('#form').addEventListener('input', (e) => {
+  const cont = e.target.closest('.campo.mal, fieldset.mal');
+  if (cont?.id?.startsWith('c-')) {
+    const campo = cont.id.slice(2);
+    const regla = REGLAS[pasoActual]?.[campo];
+    if (regla && !regla(recolectar())) marcarError(campo, null);
+  }
+});
+$('#form').addEventListener('change', (e) => {
+  const cont = e.target.closest('fieldset.mal');
+  if (cont?.id?.startsWith('c-')) marcarError(cont.id.slice(2), null);
+});
+
+/* ------------------------------------------------------------------ */
+/* Navegación entre pasos                                              */
+/* ------------------------------------------------------------------ */
+const TOTAL = 4;
+let pasoActual = 1;
+
+function mostrarPaso(n) {
+  pasoActual = n;
+  $$('.paso').forEach((s) => { s.hidden = Number(s.dataset.paso) !== n; });
+  $$('#pasos li').forEach((li) => {
+    const p = Number(li.dataset.paso);
+    li.classList.toggle('activo', p === n);
+    li.classList.toggle('hecho', p < n);
+  });
+  $('#btn-atras').hidden = n === 1;
+  $('#btn-siguiente').textContent = n === TOTAL ? 'Enviar mi respuesta' : 'Continuar →';
+  $('#cuenta').textContent = `Paso ${n} de ${TOTAL}`;
+  ocultarAviso();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+$('#btn-atras').addEventListener('click', () => {
+  limpiarErrores(pasoActual);
+  if (pasoActual > 1) mostrarPaso(pasoActual - 1);
+});
+
+$('#btn-siguiente').addEventListener('click', () => {
+  if (!validarPaso(pasoActual)) return;
+  if (pasoActual < TOTAL) mostrarPaso(pasoActual + 1);
+  else enviar();
+});
+
+// Enter avanza, salvo dentro de un área de texto.
+$('#form').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    $('#btn-siguiente').click();
+  }
+});
+
+/* ------------------------------------------------------------------ */
+/* Avisos                                                              */
+/* ------------------------------------------------------------------ */
+function mostrarAviso(texto) {
+  $('#aviso-txt').textContent = texto;
+  $('#aviso').classList.add('visible');
+  $('#aviso').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+function ocultarAviso() { $('#aviso').classList.remove('visible'); }
+
+/* ------------------------------------------------------------------ */
+/* Envío                                                               */
+/* ------------------------------------------------------------------ */
+let enviando = false;
+
+async function enviar() {
+  if (enviando) return;
+  enviando = true;
+
+  const btn = $('#btn-siguiente');
+  const textoOriginal = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Enviando…';
+  ocultarAviso();
+
+  const datos = recolectar();
+
+  try {
+    const r = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datos),
+    });
+    const cuerpo = await r.json().catch(() => ({}));
+
+    if (!r.ok) {
+      // Si el servidor marcó campos concretos, se muestran donde corresponde.
+      if (cuerpo.errores) {
+        for (const [campo, msg] of Object.entries(cuerpo.errores)) marcarError(campo, msg);
+        const pasoConError = [1, 2, 3, 4].find((p) => Object.keys(REGLAS[p]).some((c) => cuerpo.errores[c]));
+        if (pasoConError && pasoConError !== pasoActual) mostrarPaso(pasoConError);
+      }
+      mostrarAviso(cuerpo.error || 'No pudimos guardar tu respuesta. Intenta de nuevo.');
+      return;
+    }
+
+    try { localStorage.removeItem(CLAVE); } catch { /* nada */ }
+
+    $('#cierre-nombre').textContent = datos.nombre.split(' ')[0] || 'colega';
+    $('#folio').textContent = `Registro n.º ${cuerpo.id}`;
+    $('#form').style.display = 'none';
+    $('.progreso').style.display = 'none';
+    $('#cierre').classList.add('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch {
+    mostrarAviso('No pudimos conectarnos. Revisa tu conexión e intenta de nuevo; lo que escribiste sigue guardado.');
+  } finally {
+    enviando = false;
+    btn.disabled = false;
+    btn.textContent = textoOriginal;
+  }
+}
+
+mostrarPaso(1);
+</script>
+</body>
+</html>

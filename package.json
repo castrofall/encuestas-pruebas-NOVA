@@ -1,0 +1,14 @@
+{
+  "name": "feedback-nova-ternova",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Formulario de retroalimentacion de las pruebas de Nova y panel de resultados. Grupo Ternova.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4"
+  }
+}
