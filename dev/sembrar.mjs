@@ -63,7 +63,6 @@ const FUTURO = [
   'Que lea los correos y me diga qué es urgente antes de entrar a Outlook.',
   'Integración con Epicor para consultar inventario sin abrir el sistema.',
   'Que genere presentaciones con la plantilla de la marca ya aplicada.',
-  '',
   'Un asistente por área, que sepa lo que hace cada quien.',
   'Que me avise de vencimientos y pendientes sin que yo revise.',
 ];

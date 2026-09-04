@@ -354,9 +354,10 @@
         </div>
 
         <div class="campo" id="c-futuro">
-          <label for="futuro">¿Qué te gustaría que Nova pudiera hacer más adelante? <span class="opcional">(opcional)</span></label>
+          <label for="futuro">¿Qué te gustaría que Nova pudiera hacer más adelante?</label>
           <textarea id="futuro" name="futuro" maxlength="2000"></textarea>
           <span class="contador" data-cuenta="futuro"></span>
+          <span class="msg-error"><span aria-hidden="true">•</span><span class="t"></span></span>
         </div>
 
         <div class="campo" id="c-comentario">
@@ -513,6 +514,7 @@ const REGLAS = {
     lo_mejor: (d) => d.lo_mejor.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
     problemas: (d) => d.problemas.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
     mejoras: (d) => d.mejoras.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
+    futuro: (d) => d.futuro.length < 15 ? 'Cuéntanos con un poco más de detalle (mínimo 15 caracteres).' : null,
   },
 };
 
